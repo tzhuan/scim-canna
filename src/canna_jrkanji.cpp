@@ -34,13 +34,9 @@
 #define SCIM_PROP_INPUT_MODE_ALPHABET        "/IMEngine/Canna/InputMode/Alphabet"
 #define SCIM_PROP_INPUT_MODE_WIDE_ALPHABET   "/IMEngine/Canna/InputMode/WideAlphabet"
 
-#define SCIM_PROP_INPUT_MODE_SYMBOLS         "/IMEngine/Canna/InputMode/Symbols"
-#define SCIM_PROP_INPUT_MODE_SYMBOLS_KIGO    "/IMEngine/Canna/InputMode/Symbols/Kigo"
-#define SCIM_PROP_INPUT_MODE_SYMBOLS_HEX     "/IMEngine/Canna/InputMode/Symbols/Hex"
-#define SCIM_PROP_INPUT_MODE_SYMBOLS_BUSHU   "/IMEngine/Canna/InputMode/Symbols/Bushu"
-#define SCIM_PROP_INPUT_MODE_SYMBOLS_LINE    "/IMEngine/Canna/InputMode/Symbols/Line"
-#define SCIM_PROP_INPUT_MODE_SYMBOLS_RUSSIAN "/IMEngine/Canna/InputMode/Symbols/Russian"
-#define SCIM_PROP_INPUT_MODE_SYMBOLS_GREEK   "/IMEngine/Canna/InputMode/Symbols/Greek"
+#define SCIM_PROP_INPUT_MODE_KIGO            "/IMEngine/Canna/InputMode/Kigo"
+#define SCIM_PROP_INPUT_MODE_HEX             "/IMEngine/Canna/InputMode/Hex"
+#define SCIM_PROP_INPUT_MODE_BUSHU           "/IMEngine/Canna/InputMode/Bushu"
 
 static unsigned int n_instance = 0;
 static unsigned int last_created_context_id = 0;
@@ -119,32 +115,16 @@ CannaJRKanji::install_properties (void)
                      _("Wide alphabet"), String (""), _("Wide alphabet"));
     m_properties.push_back (prop);
 
-    prop = Property (SCIM_PROP_INPUT_MODE_SYMBOLS,
-                     _("Symbols"), String (""), _("Symbols"));
-    m_properties.push_back (prop);
-
-    prop = Property (SCIM_PROP_INPUT_MODE_SYMBOLS_KIGO,
+    prop = Property (SCIM_PROP_INPUT_MODE_KIGO,
                      _("Symbols"), String (""), _("Search a symbol"));
     m_properties.push_back (prop);
 
-    prop = Property (SCIM_PROP_INPUT_MODE_SYMBOLS_HEX,
+    prop = Property (SCIM_PROP_INPUT_MODE_HEX,
                      _("Hex"), String (""), _("Search a kanji by hex"));
     m_properties.push_back (prop);
 
-    prop = Property (SCIM_PROP_INPUT_MODE_SYMBOLS_BUSHU,
+    prop = Property (SCIM_PROP_INPUT_MODE_BUSHU,
                      _("Bushu"), String (""), _("Search a kanji by bushu"));
-    m_properties.push_back (prop);
-
-    prop = Property (SCIM_PROP_INPUT_MODE_SYMBOLS_LINE,
-                     _("Line"), String (""), _("Line"));
-    m_properties.push_back (prop);
-
-    prop = Property (SCIM_PROP_INPUT_MODE_SYMBOLS_RUSSIAN,
-                     _("Russian"), String (""), _("Russian"));
-    m_properties.push_back (prop);
-
-    prop = Property (SCIM_PROP_INPUT_MODE_SYMBOLS_GREEK,
-                     _("Greek"), String (""), _("Greek"));
     m_properties.push_back (prop);
 }
 
@@ -203,21 +183,38 @@ CannaJRKanji::translate_key_event (const KeyEvent &key)
         return CANNA_KEY_Home;
 
     case SCIM_KEY_Help:
+    case SCIM_KEY_Escape:
         return CANNA_KEY_Help;
 
     case SCIM_KEY_F1:
+        return CANNA_KEY_F1;
+
     case SCIM_KEY_F2:
+        return CANNA_KEY_F2;
+
     case SCIM_KEY_F3:
+        return CANNA_KEY_F3;
+
     case SCIM_KEY_F4:
+        return CANNA_KEY_F4;
+
     case SCIM_KEY_F5:
+        return CANNA_KEY_F5;
+
     case SCIM_KEY_F6:
+        return CANNA_KEY_F6;
+
     case SCIM_KEY_F7:
+        return CANNA_KEY_F7;
+
     case SCIM_KEY_F8:
+        return CANNA_KEY_F8;
+
     case SCIM_KEY_F9:
+        return CANNA_KEY_F9;
+
     case SCIM_KEY_F10:
-    case SCIM_KEY_F11:
-    case SCIM_KEY_F12:
-        return CANNA_KEY_F1 + key.code - SCIM_KEY_F1;
+        return CANNA_KEY_F10;
 
     case SCIM_KEY_Henkan_Mode:
         if (key.mask & SCIM_KEY_ControlMask) {
@@ -302,7 +299,7 @@ CannaJRKanji::process_key_event (const KeyEvent &key)
     n = jrKanjiString (m_context_id, ch, buf, size, &m_ks);
 
     // commit string
-    if (m_preediting && n > 0) {
+    if (n > 0 && !(m_ks.info & KanjiThroughInfo)) {
         buf[n] = '\0';
         WideString dest;
         m_iconv.convert (dest, buf);
@@ -380,28 +377,20 @@ CannaJRKanji::trigger_property (const String &property)
     } else if (property == SCIM_PROP_INPUT_MODE_WIDE_ALPHABET) {
         m_ksv.val = CANNA_MODE_ZenAlphaHenkanMode;
 
-    } else if (property == SCIM_PROP_INPUT_MODE_SYMBOLS_KIGO) {
+    } else if (property == SCIM_PROP_INPUT_MODE_KIGO) {
         m_ksv.val = CANNA_MODE_KigoMode;
 
-    } else if (property == SCIM_PROP_INPUT_MODE_SYMBOLS_HEX) {
+    } else if (property == SCIM_PROP_INPUT_MODE_HEX) {
         m_ksv.val = CANNA_MODE_HexMode;
 
-    } else if (property == SCIM_PROP_INPUT_MODE_SYMBOLS_BUSHU) {
+    } else if (property == SCIM_PROP_INPUT_MODE_BUSHU) {
         m_ksv.val = CANNA_MODE_BushuMode;
-
-    } else if (property == SCIM_PROP_INPUT_MODE_SYMBOLS_LINE) {
-        m_ksv.val = CANNA_MODE_LineMode;
-
-    } else if (property == SCIM_PROP_INPUT_MODE_SYMBOLS_RUSSIAN) {
-        m_ksv.val = CANNA_MODE_RussianMode;
-
-    } else if (property == SCIM_PROP_INPUT_MODE_SYMBOLS_GREEK) {
-        m_ksv.val = CANNA_MODE_GreekMode;
     }
 
     if (val != m_ksv.val) {
         jrKanjiControl (m_context_id, KC_CHANGEMODE, (char *) &m_ksv);
         set_mode_line ();
+        set_guide_line ();
     }
 }
 
