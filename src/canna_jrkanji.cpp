@@ -329,7 +329,7 @@ CannaJRKanji::process_key_event (const KeyEvent &key)
 
         if (!m_preediting && dest.length () <= 0) {
             m_canna->hide_preedit_string ();
-            return false;
+            return !(m_ks.info & KanjiThroughInfo);
         } else {
             m_preediting = true;
             m_canna->show_preedit_string ();
@@ -347,14 +347,13 @@ CannaJRKanji::process_key_event (const KeyEvent &key)
             m_preediting = false;
             return true;
         } else {
-            return false;
+            return !(m_ks.info & KanjiThroughInfo);
         }
-
     }
 
     m_canna->hide_lookup_table ();
 
-    return false;
+    return !(m_ks.info & KanjiThroughInfo);
 }
 
 void
@@ -423,7 +422,7 @@ CannaJRKanji::set_guide_line (void)
         else
             m_canna->hide_aux_string ();
     } else {
-        m_canna->hide_aux_string ();
-        m_canna->update_aux_string (utf8_mbstowcs (""));
+        //m_canna->hide_aux_string ();
+        //m_canna->update_aux_string (utf8_mbstowcs (""));
     }
 }

@@ -5,23 +5,69 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scim-canna\n"
 "Report-Msgid-Bugs-To: ashie@homa.ne.jp\n"
-"POT-Creation-Date: 2005-03-19 22:05+0900\n"
-"PO-Revision-Date: 2005-03-15 11:28+0900\n"
+"POT-Creation-Date: 2005-03-23 02:14+0900\n"
+"PO-Revision-Date: 2005-03-23 02:19+0900\n"
 "Last-Translator: Takuro Ashie <ashie@homa.ne.jp>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: src/canna_jrkanji.cpp:95
+msgid "Input mode"
+msgstr "入力モード"
+
+#: src/canna_jrkanji.cpp:99
+msgid "Hiragana"
+msgstr "ひらがな"
+
+#: src/canna_jrkanji.cpp:103
+msgid "Katakana"
+msgstr "カタカナ"
+
+#: src/canna_jrkanji.cpp:107
+msgid "Half width katakana"
+msgstr "半角カタカナ"
+
+#: src/canna_jrkanji.cpp:111
+msgid "Alphabet"
+msgstr "英数"
+
+#: src/canna_jrkanji.cpp:115
+msgid "Wide alphabet"
+msgstr "全角英数"
+
+#: src/canna_jrkanji.cpp:119
+msgid "Symbols"
+msgstr "記号"
+
+#: src/canna_jrkanji.cpp:119
+msgid "Search a symbol"
+msgstr "記号を入力"
+
+#: src/canna_jrkanji.cpp:123
+msgid "Hex"
+msgstr "16進"
+
+#: src/canna_jrkanji.cpp:123
+msgid "Search a kanji by hex"
+msgstr "漢字を16進コードで検索"
+
+#: src/canna_jrkanji.cpp:127
+msgid "Bushu"
+msgstr "部首"
+
+#: src/canna_jrkanji.cpp:127
+msgid "Search a kanji by bushu"
+msgstr "漢字を部首で検索"
+
 #: src/scim_canna_imengine_setup.cpp:83
-#, fuzzy
 msgid "Canna"
-msgstr "かな"
+msgstr "Canna"
 
 #: src/scim_canna_imengine_setup.cpp:88
-#, fuzzy
 msgid "An Canna IMEngine Module."
-msgstr "PRIME IMEngineモジュール"
+msgstr "Canna IMEngineモジュール"
 
 #: src/scim_canna_imengine_setup.cpp:204
 msgid "Common keys"
@@ -412,26 +458,11 @@ msgstr "辞書"
 #~ msgid "Prime"
 #~ msgstr "Prime"
 
-#~ msgid "Input mode"
-#~ msgstr "入力モード"
-
-#~ msgid "Hiragana"
-#~ msgstr "ひらがな"
-
-#~ msgid "Katakana"
-#~ msgstr "カタカナ"
-
-#~ msgid "Half width katakana"
-#~ msgstr "半角カタカナ"
-
 #~ msgid "Latin"
 #~ msgstr "英数"
 
 #~ msgid "Direct input"
 #~ msgstr "直接入力"
-
-#~ msgid "Wide latin"
-#~ msgstr "全角英数"
 
 #~ msgid "Typing method"
 #~ msgstr "入力方式"
