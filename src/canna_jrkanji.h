@@ -25,6 +25,9 @@
 #define Uses_SCIM_ICONV
 
 #include <scim.h>
+#include <canna/jrkanji.h>
+
+#define CANNA_MAX_SIZE 1024
 
 using namespace scim;
 
@@ -37,10 +40,9 @@ public:
     virtual ~CannaJRKanji  (void);
 
 public:
-    int  translate_key_event (const KeyEvent &key);
-    bool process_key_event   (const KeyEvent &key);
-
-    CannaInstance *m_ci;
+    int           translate_key_event (const KeyEvent &key);
+    bool          process_key_event   (const KeyEvent &key);
+    PropertyList &get_properties      (void) { return m_properties; }
 
 private:
     unsigned int convert_string (WideString &dest,
@@ -51,8 +53,17 @@ private:
                                  unsigned int cur_len);
 
 private:
-    IConvert m_iconv;
-    bool     m_preediting;
+    CannaInstance         *m_canna;
+
+    IConvert               m_iconv;
+
+    unsigned int           m_context_id;
+    jrKanjiStatus          m_ks;
+    jrKanjiStatusWithValue m_ksv;
+    unsigned char          m_workbuf[CANNA_MAX_SIZE];
+    PropertyList           m_properties;
+
+    bool                   m_preediting;
 };
 
 #endif /* __CANNA_JRKANJI_H__ */

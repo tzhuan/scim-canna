@@ -48,8 +48,8 @@ CannaInstance::CannaInstance (CannaFactory   *factory,
                               int             id)
     : IMEngineInstanceBase (factory, encoding, id),
       m_factory (factory),
-    m_prev_key (0,0),
-    m_canna_jrkanji (this)
+      m_prev_key (0,0),
+      m_canna_jrkanji (this)
 {
     SCIM_DEBUG_IMENGINE(1) << "Create CANNA Instance : ";
 }
@@ -69,13 +69,11 @@ CannaInstance::process_key_event (const KeyEvent& key)
         return true;
     }
 
-#if 0
     // ignore modifier keys
     if (key.code == SCIM_KEY_Shift_L || key.code == SCIM_KEY_Shift_R ||
         key.code == SCIM_KEY_Control_L || key.code == SCIM_KEY_Control_R ||
         key.code == SCIM_KEY_Alt_L || key.code == SCIM_KEY_Alt_R)
         return false;
-#endif
 
 #if 0
     // lookup user defined key binds
@@ -202,7 +200,7 @@ CannaInstance::focus_in ()
 {
     SCIM_DEBUG_IMENGINE(2) << "focus_in.\n";
 
-    register_properties (m_properties);
+    register_properties (m_canna_jrkanji.get_properties ());
 }
 
 void
