@@ -42,15 +42,19 @@ public:
 public:
     int           translate_key_event (const KeyEvent &key);
     bool          process_key_event   (const KeyEvent &key);
+    void          trigger_property    (const String &property);
     PropertyList &get_properties      (void) { return m_properties; }
 
 private:
-    unsigned int convert_string (WideString &dest,
-                                 AttributeList &attr_list,
-                                 const char *str,
-                                 unsigned int len,
-                                 unsigned int cur_pos,
-                                 unsigned int cur_len);
+    void         install_properties   (void);
+    void         set_mode_line        (void);
+    void         set_guide_line       (void);
+    unsigned int convert_string       (WideString &dest,
+                                       AttributeList &attr_list,
+                                       const char *str,
+                                       unsigned int len,
+                                       unsigned int cur_pos,
+                                       unsigned int cur_len);
 
 private:
     CannaInstance         *m_canna;

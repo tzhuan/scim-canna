@@ -215,6 +215,8 @@ CannaInstance::trigger_property (const String &property)
     String canna_prop = property.substr (property.find_last_of ('/') + 1);
 
     SCIM_DEBUG_IMENGINE(2) << "trigger_property : " << property << " - " << canna_prop << "\n";
+
+    m_canna_jrkanji.trigger_property (property);
 }
 
 /*

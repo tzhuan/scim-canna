@@ -27,7 +27,20 @@
 #include "scim_canna_imengine.h"
 #include "intl.h"
 
-#define SCIM_PROP_INPUT_MODE                "/IMEngine/Canna/InputMode"
+#define SCIM_PROP_INPUT_MODE                 "/IMEngine/Canna/InputMode"
+#define SCIM_PROP_INPUT_MODE_HIRAGANA        "/IMEngine/Canna/InputMode/Hiragana"
+#define SCIM_PROP_INPUT_MODE_KATAKANA        "/IMEngine/Canna/InputMode/Katakana"
+#define SCIM_PROP_INPUT_MODE_HALF_KATAKANA   "/IMEngine/Canna/InputMode/HalfKatakana"
+#define SCIM_PROP_INPUT_MODE_ALPHABET        "/IMEngine/Canna/InputMode/Alphabet"
+#define SCIM_PROP_INPUT_MODE_WIDE_ALPHABET   "/IMEngine/Canna/InputMode/WideAlphabet"
+
+#define SCIM_PROP_INPUT_MODE_SYMBOLS         "/IMEngine/Canna/InputMode/Symbols"
+#define SCIM_PROP_INPUT_MODE_SYMBOLS_KIGO    "/IMEngine/Canna/InputMode/Symbols/Kigo"
+#define SCIM_PROP_INPUT_MODE_SYMBOLS_HEX     "/IMEngine/Canna/InputMode/Symbols/Hex"
+#define SCIM_PROP_INPUT_MODE_SYMBOLS_BUSHU   "/IMEngine/Canna/InputMode/Symbols/Bushu"
+#define SCIM_PROP_INPUT_MODE_SYMBOLS_LINE    "/IMEngine/Canna/InputMode/Symbols/Line"
+#define SCIM_PROP_INPUT_MODE_SYMBOLS_RUSSIAN "/IMEngine/Canna/InputMode/Symbols/Russian"
+#define SCIM_PROP_INPUT_MODE_SYMBOLS_GREEK   "/IMEngine/Canna/InputMode/Symbols/Greek"
 
 static unsigned int n_instance = 0;
 static unsigned int last_created_context_id = 0;
@@ -63,18 +76,8 @@ CannaJRKanji::CannaJRKanji (CannaInstance *ci)
     n_instance++;
 
     // set mode line
-    Property prop;
-    prop = Property (SCIM_PROP_INPUT_MODE,
-                     _("Unknown"), String (""), _("Input mode"));
-    m_properties.push_back (prop);
-
-    int max_mode_len = jrKanjiControl(m_context_id, KC_QUERYMAXMODESTR, 0);
-    unsigned char current_mode[max_mode_len];
-    jrKanjiControl(m_context_id, KC_QUERYMODE, (char *) current_mode);
-    WideString dest;
-    m_iconv.convert (dest, (const char *) current_mode);
-    m_properties[0].set_label (utf8_wcstombs(dest).c_str());
-    m_canna->register_properties (m_properties);
+    install_properties ();
+    set_mode_line ();
 }
 
 CannaJRKanji::~CannaJRKanji ()
@@ -86,6 +89,63 @@ CannaJRKanji::~CannaJRKanji ()
         if (n_instance == 0)
             jrKanjiControl (0, KC_FINALIZE, NULL);
     }
+}
+
+void
+CannaJRKanji::install_properties (void)
+{
+    Property prop;
+    prop = Property (SCIM_PROP_INPUT_MODE,
+                     _("Input mode"), String (""), _("Input mode"));
+    m_properties.push_back (prop);
+
+    prop = Property (SCIM_PROP_INPUT_MODE_HIRAGANA,
+                     _("Hiragana"), String (""), _("Hiragana"));
+    m_properties.push_back (prop);
+
+    prop = Property (SCIM_PROP_INPUT_MODE_KATAKANA,
+                     _("Katakana"), String (""), _("Katakana"));
+    m_properties.push_back (prop);
+
+    prop = Property (SCIM_PROP_INPUT_MODE_HALF_KATAKANA,
+                     _("Half width katakana"), String (""), _("Half width katakana"));
+    m_properties.push_back (prop);
+
+    prop = Property (SCIM_PROP_INPUT_MODE_ALPHABET,
+                     _("Alphabet"), String (""), _("Alphabet"));
+    m_properties.push_back (prop);
+
+    prop = Property (SCIM_PROP_INPUT_MODE_WIDE_ALPHABET,
+                     _("Wide alphabet"), String (""), _("Wide alphabet"));
+    m_properties.push_back (prop);
+
+    prop = Property (SCIM_PROP_INPUT_MODE_SYMBOLS,
+                     _("Symbols"), String (""), _("Symbols"));
+    m_properties.push_back (prop);
+
+    prop = Property (SCIM_PROP_INPUT_MODE_SYMBOLS_KIGO,
+                     _("Symbols"), String (""), _("Search a symbol"));
+    m_properties.push_back (prop);
+
+    prop = Property (SCIM_PROP_INPUT_MODE_SYMBOLS_HEX,
+                     _("Hex"), String (""), _("Search a kanji by hex"));
+    m_properties.push_back (prop);
+
+    prop = Property (SCIM_PROP_INPUT_MODE_SYMBOLS_BUSHU,
+                     _("Bushu"), String (""), _("Search a kanji by bushu"));
+    m_properties.push_back (prop);
+
+    prop = Property (SCIM_PROP_INPUT_MODE_SYMBOLS_LINE,
+                     _("Line"), String (""), _("Line"));
+    m_properties.push_back (prop);
+
+    prop = Property (SCIM_PROP_INPUT_MODE_SYMBOLS_RUSSIAN,
+                     _("Russian"), String (""), _("Russian"));
+    m_properties.push_back (prop);
+
+    prop = Property (SCIM_PROP_INPUT_MODE_SYMBOLS_GREEK,
+                     _("Greek"), String (""), _("Greek"));
+    m_properties.push_back (prop);
 }
 
 int
@@ -250,32 +310,11 @@ CannaJRKanji::process_key_event (const KeyEvent &key)
     }
 
     // mode line string
-    if (m_ks.info & KanjiModeInfo) {
-        WideString dest;
-        m_iconv.convert (dest, (const char *) m_ks.mode);
-        m_properties[0].set_label (utf8_wcstombs(dest).c_str());
-        m_canna->update_property (m_properties[0]);
-    }
+    if (m_ks.info & KanjiModeInfo)
+        set_mode_line ();
 
     // guide line string
-    if (m_ks.info & KanjiGLineInfo) {
-        WideString dest;
-        AttributeList attrs;
-        convert_string (dest, attrs,
-                        (const char *) m_ks.gline.line,
-                        m_ks.gline.length,
-                        m_ks.gline.revPos,
-                        m_ks.gline.revLen);
-        m_canna->update_aux_string (dest, attrs);
-        if (dest.length () > 0)
-            m_canna->show_aux_string ();
-        else
-            m_canna->hide_aux_string ();
-
-    } else {
-        m_canna->hide_aux_string ();
-        m_canna->update_aux_string (utf8_mbstowcs (""));
-    }
+    set_guide_line ();
 
     // preedit string
     if (m_ks.length > 0) {
@@ -319,4 +358,83 @@ CannaJRKanji::process_key_event (const KeyEvent &key)
     m_canna->hide_lookup_table ();
 
     return false;
+}
+
+void
+CannaJRKanji::trigger_property (const String &property)
+{
+    int val = m_ksv.val;
+
+    if (property == SCIM_PROP_INPUT_MODE_HIRAGANA) {
+        m_ksv.val = CANNA_MODE_ZenHiraHenkanMode;
+
+    } else if (property == SCIM_PROP_INPUT_MODE_KATAKANA) {
+        m_ksv.val = CANNA_MODE_ZenKataHenkanMode;
+
+    } else if (property == SCIM_PROP_INPUT_MODE_HALF_KATAKANA) {
+        m_ksv.val = CANNA_MODE_HanKataHenkanMode;
+
+    } else if (property == SCIM_PROP_INPUT_MODE_ALPHABET) {
+        m_ksv.val = CANNA_MODE_HanAlphaHenkanMode;
+
+    } else if (property == SCIM_PROP_INPUT_MODE_WIDE_ALPHABET) {
+        m_ksv.val = CANNA_MODE_ZenAlphaHenkanMode;
+
+    } else if (property == SCIM_PROP_INPUT_MODE_SYMBOLS_KIGO) {
+        m_ksv.val = CANNA_MODE_KigoMode;
+
+    } else if (property == SCIM_PROP_INPUT_MODE_SYMBOLS_HEX) {
+        m_ksv.val = CANNA_MODE_HexMode;
+
+    } else if (property == SCIM_PROP_INPUT_MODE_SYMBOLS_BUSHU) {
+        m_ksv.val = CANNA_MODE_BushuMode;
+
+    } else if (property == SCIM_PROP_INPUT_MODE_SYMBOLS_LINE) {
+        m_ksv.val = CANNA_MODE_LineMode;
+
+    } else if (property == SCIM_PROP_INPUT_MODE_SYMBOLS_RUSSIAN) {
+        m_ksv.val = CANNA_MODE_RussianMode;
+
+    } else if (property == SCIM_PROP_INPUT_MODE_SYMBOLS_GREEK) {
+        m_ksv.val = CANNA_MODE_GreekMode;
+    }
+
+    if (val != m_ksv.val) {
+        jrKanjiControl (m_context_id, KC_CHANGEMODE, (char *) &m_ksv);
+        set_mode_line ();
+    }
+}
+
+void
+CannaJRKanji::set_mode_line (void)
+{
+    int max_mode_len = jrKanjiControl(m_context_id, KC_QUERYMAXMODESTR, 0);
+    unsigned char current_mode[max_mode_len];
+    jrKanjiControl(m_context_id, KC_QUERYMODE, (char *) current_mode);
+    WideString dest;
+    m_iconv.convert (dest, (const char *) current_mode);
+    m_properties[0].set_label (utf8_wcstombs(dest).c_str());
+    m_canna->register_properties (m_properties);
+}
+
+void
+CannaJRKanji::set_guide_line (void)
+{
+    if (m_ks.info & KanjiGLineInfo) {
+        WideString dest;
+        AttributeList attrs;
+        convert_string (dest, attrs,
+                        (const char *) m_ks.gline.line,
+                        m_ks.gline.length,
+                        m_ks.gline.revPos,
+                        m_ks.gline.revLen);
+        m_canna->update_aux_string (dest, attrs);
+        if (dest.length () > 0)
+            m_canna->show_aux_string ();
+        else
+            m_canna->hide_aux_string ();
+    } else {
+        m_canna->hide_aux_string ();
+        m_canna->update_aux_string (utf8_mbstowcs (""));
+    }
 }
