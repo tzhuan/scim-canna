@@ -18,6 +18,7 @@
  */
 
 #define Uses_SCIM_IMENGINE
+#define Uses_SCIM_CONFIG_BASE
 
 #ifdef HAVE_CONFIG_H
   #include <config.h>
@@ -25,6 +26,7 @@
 
 #include "canna_jrkanji.h"
 #include "scim_canna_imengine.h"
+#include "scim_canna_imengine_factory.h"
 #include "intl.h"
 
 #define SCIM_PROP_INPUT_MODE                 "/IMEngine/Canna/InputMode"
@@ -51,7 +53,17 @@ CannaJRKanji::CannaJRKanji (CannaInstance *ci)
     m_iconv.set_encoding ("EUC-JP");
 
     // initialize canna library
-    if (n_instance != 0) {
+    if (n_instance == 0) {
+        if (m_canna->m_factory->m_specify_init_file_name) {
+            jrKanjiControl (0, KC_SETINITFILENAME,
+                            (char *) m_canna->m_factory->m_init_file_name.c_str());
+        }
+
+        if (m_canna->m_factory->m_specify_server_name) {
+            jrKanjiControl (0, KC_SETSERVERNAME,
+                            (char *) m_canna->m_factory->m_server_name.c_str());
+        }
+
         jrKanjiControl (0, KC_INITIALIZE, (char *) &warn);
 
         for (p = warn; warn && *p; p++) {

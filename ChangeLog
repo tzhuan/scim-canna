@@ -1,3 +1,13 @@
+2005-03-24 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/scim_canna_imengine_factory.cpp,
+	  src/scim_canna_imengine_factory.h,
+	  src/scim_canna_imenigne_prefs.h, src/canna_imengine_setup.cpp
+	  src/canna_jrkanji.cpp:
+	Added init file and server name preference.
+
+	* po/ja.po: Updated.
+
 2005-03-23 Takuro Ashie <ashie@homa.ne.jp>
 
 	* src/canna_jrkanji.h: Moved translate_key_event() to private field.

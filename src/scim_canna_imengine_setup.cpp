@@ -130,7 +130,17 @@ struct ComboConfigData
 };
 
 // Internal data declaration.
+static bool   __config_specify_init_file_name = SCIM_CANNA_CONFIG_SPECIFY_INIT_FILE_NAME_DEFAULT;
+static bool   __config_specify_server_name    = SCIM_CANNA_CONFIG_SPECIFY_SERVER_NAME_DEFAULT;
+static String __config_init_file_name         = SCIM_CANNA_CONFIG_INIT_FILE_NAME_DEFAULT;
+static String __config_server_name            = SCIM_CANNA_CONFIG_SERVER_NAME_DEFAULT;
+
 static bool __have_changed    = true;
+
+static GtkWidget *__widget_specify_init_file_name = 0;
+static GtkWidget *__widget_specify_server_name    = 0;
+static GtkWidget *__widget_init_file_name         = 0;
+static GtkWidget *__widget_server_name            = 0;
 
 static GtkTooltips * __widget_tooltips = 0;
 
@@ -215,6 +225,9 @@ static void on_default_editable_changed       (GtkEditable     *editable,
                                                gpointer         user_data);
 static void on_default_toggle_button_toggled  (GtkToggleButton *togglebutton,
                                                gpointer         user_data);
+static void on_toggle_button_toggled_set_sensitive
+                                              (GtkToggleButton *togglebutton,
+                                               gpointer         user_data);
 static void on_default_key_selection_clicked  (GtkButton       *button,
                                                gpointer         user_data);
 #if 0
@@ -279,33 +292,80 @@ create_combo_widget (const char *label_text, GtkWidget **widget,
 static GtkWidget *
 create_options_page ()
 {
-    GtkWidget *vbox, *table, *label;
+    GtkWidget *vbox, *vbox2, *frame;
 
     vbox = gtk_vbox_new (FALSE, 0);
     gtk_widget_show (vbox);
 
-    table = gtk_table_new (2, 2, FALSE);
-    gtk_box_pack_start(GTK_BOX(vbox), table, FALSE, FALSE, 4);
-    gtk_widget_show (table);
-
     if (!__widget_tooltips)
         __widget_tooltips = gtk_tooltips_new();
 
-#if 0
-    /* predict on preedition */
-    __widget_predict_on_preedition
-        = gtk_check_button_new_with_mnemonic (_("Predict while typing letters."));
-    gtk_widget_show (__widget_predict_on_preedition);
-    gtk_box_pack_start (GTK_BOX (vbox), __widget_predict_on_preedition, FALSE, FALSE, 4);
-    gtk_container_set_border_width (GTK_CONTAINER (__widget_predict_on_preedition), 4);
-    gtk_tooltips_set_tip (__widget_tooltips, __widget_predict_on_preedition,
-                          _("Predict while typing letters."), NULL);
+    /* specify initialize file name */
+    frame = gtk_frame_new ("");
+    gtk_container_set_border_width (GTK_CONTAINER (frame), 4);
+    gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, FALSE, 4);
+    gtk_widget_show (frame);
+
+    __widget_specify_init_file_name
+        = gtk_check_button_new_with_mnemonic (_("Specify Canna initialize file"));
+    gtk_widget_show (__widget_specify_init_file_name);
+    gtk_frame_set_label_widget (GTK_FRAME (frame),
+                                __widget_specify_init_file_name);
+
+    vbox2 = gtk_vbox_new (FALSE, 0);
+    gtk_container_set_border_width (GTK_CONTAINER (vbox2), 4);
+    gtk_container_add (GTK_CONTAINER (frame), vbox2);
+    gtk_widget_show (vbox2);
+
+    __widget_init_file_name = gtk_entry_new ();
+    gtk_widget_show (__widget_init_file_name);
+    gtk_box_pack_start (GTK_BOX (vbox2), __widget_init_file_name,
+                        FALSE, FALSE, 0);
+    gtk_tooltips_set_tip (__widget_tooltips, __widget_init_file_name,
+                          "The Canna initialize file name to use.", NULL);
+
+    /* specify server name */
+    frame = gtk_frame_new ("");
+    gtk_container_set_border_width (GTK_CONTAINER (frame), 4);
+    gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, FALSE, 4);
+    gtk_widget_show (frame);
+
+    __widget_specify_server_name
+        = gtk_check_button_new_with_mnemonic (_("Specify Canna server name"));
+    gtk_widget_show (__widget_specify_server_name);
+    gtk_frame_set_label_widget (GTK_FRAME (frame), __widget_specify_server_name);
+
+    vbox2 = gtk_vbox_new (FALSE, 0);
+    gtk_container_set_border_width (GTK_CONTAINER (vbox2), 4);
+    gtk_container_add (GTK_CONTAINER (frame), vbox2);
+    gtk_widget_show (vbox2);
+
+    __widget_server_name = gtk_entry_new ();
+    gtk_widget_show (__widget_server_name);
+    gtk_box_pack_start (GTK_BOX (vbox2), __widget_server_name,
+                        FALSE, FALSE, 0);
+    gtk_tooltips_set_tip (__widget_tooltips, __widget_server_name,
+                          "The Canna host name to connect.", NULL);
 
     // Connect all signals.
-    g_signal_connect ((gpointer) __widget_command, "changed",
+    g_signal_connect ((gpointer) __widget_specify_init_file_name, "toggled",
+                      G_CALLBACK (on_default_toggle_button_toggled),
+                      &__config_specify_init_file_name);
+    g_signal_connect ((gpointer) __widget_specify_init_file_name, "toggled",
+                      G_CALLBACK (on_toggle_button_toggled_set_sensitive),
+                      __widget_init_file_name);
+    g_signal_connect ((gpointer) __widget_specify_server_name, "toggled",
+                      G_CALLBACK (on_default_toggle_button_toggled),
+                      &__config_specify_server_name);
+    g_signal_connect ((gpointer) __widget_specify_server_name, "toggled",
+                      G_CALLBACK (on_toggle_button_toggled_set_sensitive),
+                      __widget_server_name);
+    g_signal_connect ((gpointer) __widget_init_file_name, "changed",
                       G_CALLBACK (on_default_editable_changed),
-                      &__config_command);
-#endif
+                      &__config_init_file_name);
+    g_signal_connect ((gpointer) __widget_server_name, "changed",
+                      G_CALLBACK (on_default_editable_changed),
+                      &__config_server_name);
 
     return vbox;
 }
@@ -376,12 +436,10 @@ create_keyboard_page (unsigned int page)
                           &(data[i].data));
     }
 
-#if 0
     for (unsigned int i = 0; data[i].key; ++ i) {
         gtk_tooltips_set_tip (__widget_tooltips, data[i].entry,
                               _(data[i].tooltip), NULL);
     }
-#endif
 
     return table;
 }
@@ -417,6 +475,7 @@ create_setup_window ()
         gtk_notebook_append_page (GTK_NOTEBOOK (notebook), page, label);
 #endif
 
+#if 0
         // Create the key bind pages.
         for (unsigned int i = 0; i < __key_conf_pages_num; i++) {
             page = create_keyboard_page (i);
@@ -424,9 +483,10 @@ create_setup_window ()
             gtk_widget_show (label);
             gtk_notebook_append_page (GTK_NOTEBOOK (notebook), page, label);
         }
+#endif
 
         // for preventing enabling left arrow.
-	gtk_notebook_set_current_page (GTK_NOTEBOOK (notebook), 1);
+        gtk_notebook_set_current_page (GTK_NOTEBOOK (notebook), 1);
         gtk_notebook_set_current_page (GTK_NOTEBOOK (notebook), 0);
 
         setup_widget_value ();
@@ -460,13 +520,30 @@ setup_combo_value (GtkCombo *combo,
 static void
 setup_widget_value ()
 {
-#if 0
-    if (__widget_command) {
-        gtk_entry_set_text (
-            GTK_ENTRY (__widget_command),
-            __config_command.c_str ());
+    if (__widget_specify_init_file_name) {
+        gtk_toggle_button_set_active (
+            GTK_TOGGLE_BUTTON (__widget_specify_init_file_name),
+            __config_specify_init_file_name);
     }
-#endif
+    if (__widget_specify_server_name) {
+        gtk_toggle_button_set_active (
+            GTK_TOGGLE_BUTTON (__widget_specify_server_name),
+            __config_specify_server_name);
+    }
+    if (__widget_init_file_name) {
+        gtk_entry_set_text (
+            GTK_ENTRY (__widget_init_file_name),
+            __config_init_file_name.c_str ());
+        gtk_widget_set_sensitive (__widget_init_file_name,
+                                  __config_specify_init_file_name);
+    }
+    if (__widget_server_name) {
+        gtk_entry_set_text (
+            GTK_ENTRY (__widget_server_name),
+            __config_server_name.c_str ());
+        gtk_widget_set_sensitive (__widget_server_name,
+                                  __config_specify_server_name);
+    }
 
     for (unsigned int j = 0; j < __key_conf_pages_num; ++j) {
         for (unsigned int i = 0; __key_conf_pages[j].data[i].key; ++ i) {
@@ -485,11 +562,18 @@ load_config (const ConfigPointer &config)
     if (config.null ())
         return;
 
-#if 0
-    __config_command =
-        config->read (String (SCIM_CANNA_CONFIG_COMMAND),
-                      __config_command);
-#endif
+    __config_specify_init_file_name =
+        config->read (String (SCIM_CANNA_CONFIG_SPECIFY_INIT_FILE_NAME),
+                      __config_specify_init_file_name);
+    __config_specify_server_name =
+        config->read (String (SCIM_CANNA_CONFIG_SPECIFY_SERVER_NAME),
+                      __config_specify_server_name);
+    __config_init_file_name =
+        config->read (String (SCIM_CANNA_CONFIG_INIT_FILE_NAME),
+                      __config_init_file_name);
+    __config_server_name =
+        config->read (String (SCIM_CANNA_CONFIG_SERVER_NAME),
+                      __config_server_name);
 
     for (unsigned int j = 0; j < __key_conf_pages_num; ++ j) {
         for (unsigned int i = 0; __key_conf_pages[j].data[i].key; ++ i) {
@@ -509,6 +593,15 @@ save_config (const ConfigPointer &config)
 {
     if (config.null ())
         return;
+
+    config->write (String (SCIM_CANNA_CONFIG_SPECIFY_INIT_FILE_NAME),
+                   __config_specify_init_file_name);
+    config->write (String (SCIM_CANNA_CONFIG_SPECIFY_SERVER_NAME),
+                   __config_specify_server_name);
+    config->write (String (SCIM_CANNA_CONFIG_INIT_FILE_NAME),
+                   __config_init_file_name);
+    config->write (String (SCIM_CANNA_CONFIG_SERVER_NAME),
+                   __config_server_name);
 
 #if 0
     config->write (String (SCIM_CANNA_CONFIG_COMMAND),
@@ -541,6 +634,18 @@ on_default_toggle_button_toggled (GtkToggleButton *togglebutton,
     if (toggle) {
         *toggle = gtk_toggle_button_get_active (togglebutton);
         __have_changed = true;
+    }
+}
+
+static void
+on_toggle_button_toggled_set_sensitive (GtkToggleButton *togglebutton,
+                                        gpointer         user_data)
+{
+    GtkWidget *widget = GTK_WIDGET (user_data);
+
+    if (widget) {
+        bool active = gtk_toggle_button_get_active (togglebutton);
+        gtk_widget_set_sensitive (widget, active);
     }
 }
 
