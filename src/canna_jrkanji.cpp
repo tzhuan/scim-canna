@@ -429,10 +429,13 @@ CannaJRKanji::set_guide_line (void)
                         m_ks.gline.revPos,
                         m_ks.gline.revLen);
         m_canna->update_aux_string (dest, attrs);
-        if (dest.length () > 0)
+        if (dest.length () > 0) {
+            m_canna->m_aux_string_visible = true;
             m_canna->show_aux_string ();
-        else
+        } else {
+            m_canna->m_aux_string_visible = false;
             m_canna->hide_aux_string ();
+        }
     } else {
         //m_canna->hide_aux_string ();
         //m_canna->update_aux_string (utf8_mbstowcs (""));

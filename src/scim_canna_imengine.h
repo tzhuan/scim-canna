@@ -47,8 +47,11 @@ private:
     /* for toolbar */
     PropertyList            m_properties;
 
-    /*  */
+    /* backend */
     CannaJRKanji            m_canna_jrkanji;
+
+    /* flags */
+    bool                    m_aux_string_visible;
 
 public:
     CannaInstance (CannaFactory   *factory,
@@ -76,12 +79,6 @@ private:
 
     /* processing key event */
     bool   process_key_event_lookup_keybind    (const KeyEvent &key);
-#if 0 // will be removed
-    bool   process_key_event_without_preedit   (const KeyEvent &key);
-    bool   process_key_event_with_preedit      (const KeyEvent &key);
-    bool   process_key_event_with_candidate    (const KeyEvent &key);
-    bool   process_remaining_key_event         (const KeyEvent &key);
-#endif
 };
 #endif /* __SCIM_CANNA_IMENGINE_H__ */
 /*

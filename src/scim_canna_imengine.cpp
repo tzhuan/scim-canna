@@ -49,7 +49,8 @@ CannaInstance::CannaInstance (CannaFactory   *factory,
     : IMEngineInstanceBase (factory, encoding, id),
       m_factory (factory),
       m_prev_key (0,0),
-      m_canna_jrkanji (this)
+      m_canna_jrkanji (this),
+      m_aux_string_visible (false)
 {
     SCIM_DEBUG_IMENGINE(1) << "Create CANNA Instance : ";
 }
@@ -98,42 +99,6 @@ CannaInstance::process_key_event_lookup_keybind (const KeyEvent& key)
 
     return false;
 }
-
-#if 0 // will be removed
-bool
-CannaInstance::process_key_event_without_preedit (const KeyEvent& key)
-{
-    return process_remaining_key_event (key);
-}
-
-bool
-CannaInstance::process_key_event_with_preedit (const KeyEvent& key)
-{
-    return process_remaining_key_event (key);
-}
-
-bool
-CannaInstance::process_key_event_with_candidate (const KeyEvent &key)
-{
-    return process_remaining_key_event (key);
-}
-
-bool
-CannaInstance::process_remaining_key_event (const KeyEvent &key)
-{
-    if (key.mask & SCIM_KEY_ControlMask ||
-        key.mask & SCIM_KEY_Mod1Mask ||
-        key.mask & SCIM_KEY_Mod2Mask ||
-        key.mask & SCIM_KEY_Mod3Mask ||
-        key.mask & SCIM_KEY_Mod4Mask ||
-        key.mask & SCIM_KEY_Mod5Mask)
-    {
-        return false;
-    }
-
-    return false;
-}
-#endif
 
 void
 CannaInstance::move_preedit_caret (unsigned int pos)
@@ -201,6 +166,9 @@ CannaInstance::focus_in ()
     SCIM_DEBUG_IMENGINE(2) << "focus_in.\n";
 
     register_properties (m_canna_jrkanji.get_properties ());
+
+    if (m_aux_string_visible)
+        show_aux_string ();
 }
 
 void
