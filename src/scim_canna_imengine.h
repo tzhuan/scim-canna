@@ -51,7 +51,7 @@ private:
     CannaJRKanji            m_canna_jrkanji;
 
     /* flags */
-    bool                    m_aux_string_visible;
+    //
 
 public:
     CannaInstance (CannaFactory   *factory,

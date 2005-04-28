@@ -46,7 +46,8 @@ static unsigned int last_created_context_id = 0;
 CannaJRKanji::CannaJRKanji (CannaInstance *ci)
     : m_canna (ci),
       m_context_id (last_created_context_id++),
-      m_preediting (false)
+      m_preediting (false),
+      m_aux_string_visible (false)
 {
     char **warn = NULL, **p;
 
@@ -430,14 +431,56 @@ CannaJRKanji::set_guide_line (void)
                         m_ks.gline.revLen);
         m_canna->update_aux_string (dest, attrs);
         if (dest.length () > 0) {
-            m_canna->m_aux_string_visible = true;
+            m_aux_string_visible = true;
             m_canna->show_aux_string ();
         } else {
-            m_canna->m_aux_string_visible = false;
+            m_aux_string_visible = false;
             m_canna->hide_aux_string ();
         }
     } else {
         //m_canna->hide_aux_string ();
         //m_canna->update_aux_string (utf8_mbstowcs (""));
     }
+}
+
+bool
+CannaJRKanji::preedit_string_visible (void)
+{
+    return m_preediting;
+}
+
+void
+CannaJRKanji::show_preedit_string (void)
+{
+    if (!m_preediting)
+        return;
+
+    WideString dest;
+    AttributeList attrs;
+    unsigned int pos;
+    pos = convert_string (dest, attrs,
+                          (const char *) m_ks.echoStr,
+                          m_ks.length,
+                          m_ks.revPos,
+                          m_ks.revLen);
+
+    m_canna->update_preedit_string (dest, attrs);
+    m_canna->update_preedit_caret (pos);
+
+    m_canna->show_preedit_string ();
+}
+
+bool
+CannaJRKanji::aux_string_visible (void)
+{
+    return m_aux_string_visible;
+}
+
+void
+CannaJRKanji::show_aux_string (void)
+{
+    if (!m_aux_string_visible)
+        return;
+
+    set_guide_line ();
 }

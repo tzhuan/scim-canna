@@ -43,6 +43,10 @@ public:
     bool          process_key_event   (const KeyEvent &key);
     void          trigger_property    (const String &property);
     PropertyList &get_properties      (void) { return m_properties; }
+    bool          preedit_string_visible(void);
+    void          show_preedit_string (void);
+    bool          aux_string_visible  (void);
+    void          show_aux_string     (void);
 
 private:
     int           translate_key_event (const KeyEvent &key);
@@ -68,6 +72,7 @@ private:
     PropertyList           m_properties;
 
     bool                   m_preediting;
+    bool                   m_aux_string_visible;
 };
 
 #endif /* __CANNA_JRKANJI_H__ */

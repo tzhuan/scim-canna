@@ -49,8 +49,7 @@ CannaInstance::CannaInstance (CannaFactory   *factory,
     : IMEngineInstanceBase (factory, encoding, id),
       m_factory (factory),
       m_prev_key (0,0),
-      m_canna_jrkanji (this),
-      m_aux_string_visible (false)
+      m_canna_jrkanji (this)
 {
     SCIM_DEBUG_IMENGINE(1) << "Create CANNA Instance : ";
 }
@@ -167,8 +166,10 @@ CannaInstance::focus_in ()
 
     register_properties (m_canna_jrkanji.get_properties ());
 
-    if (m_aux_string_visible)
-        show_aux_string ();
+    if (m_canna_jrkanji.preedit_string_visible ())
+        m_canna_jrkanji.show_preedit_string ();
+    if (m_canna_jrkanji.aux_string_visible ())
+        m_canna_jrkanji.show_aux_string ();
 }
 
 void
