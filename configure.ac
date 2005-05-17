@@ -1,5 +1,4 @@
 # Process this file with autoconf to produce a configure script.
-AM_PREREQ(1.9)
 AC_PREREQ(2.59)
 
 AC_INIT(scim-canna, 0.1.0, poincare@ikezoe.net)
@@ -21,7 +20,7 @@ AC_SUBST(SCIM_CANNA_MICRO_VERSION)
 AC_SUBST(SCIM_CANNA_VERSION)
 
 # Init automake stuff
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE(1.9)
 AM_CONFIG_HEADER(config.h)
 
 # Init gettext
