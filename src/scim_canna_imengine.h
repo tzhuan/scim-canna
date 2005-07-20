@@ -28,6 +28,7 @@
 
 #include <scim.h>
 #include <canna_jrkanji.h>
+#include <scim_canna_imengine_factory.h>
 
 using namespace scim;
 

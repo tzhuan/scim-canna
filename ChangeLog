@@ -1,3 +1,8 @@
+2005-07-20 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/scim_canna_imengine.h: Fix a build problem.
+	Thanks reporting > Thierry Vignaud & UTUMI Hirosi
+
 2005-07-10 Takuro Ashie <ashie@homa.ne.jp>
 
 	* src/scim_canna_imengine_setup.cpp: Set tooltips.
