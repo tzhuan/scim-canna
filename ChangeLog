@@ -1,0 +1,86 @@
+2005-07-29 Takuro Ashie <ashie@homa.ne.jp>
+
+	* configure.ac: Version-0.1.1.
+
+2005-07-20 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/scim_canna_imengine.h: Fix a build problem.
+	Thanks reporting > Thierry Vignaud & UTUMI Hirosi
+
+2005-07-10 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/scim_canna_imengine_setup.cpp: Set tooltips.
+	* po/ja.po: Update.
+
+2005-05-17 Takuro Ashie <ashie@homa.ne.jp>
+
+	* configure.ac; Sorry, AM_INIT_AUTOMAKE(1.9), not AM_PREREQ.
+
+2005-05-17 Takuro Ashie <ashie@homa.ne.jp>
+
+	* configure.ac; Add AM_PREREQ & AC_PREREQ.
+
+2005-04-29 Takuro Ashie <ashie@homa.ne.jp>
+
+	* configure.ac: Version-0.1.0.
+
+2005-04-28 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/scim_canna_imengine.cpp, src/scim_canna_imengine.h,
+	  src/canna_jrkanji.cpp, src/scim_canna_jrkaji.h:
+	Make sure to show preedit string and aux string.
+
+2005-04-28 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/scim_canna_imengine_setup.cpp: Refactoring.
+
+2005-04-06 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/canna_jrkanji.cpp, src/scim_canna_imengine.cpp,
+	  src/scim_canna_imengine.h:
+	Added visible flag for guide line string.
+
+2005-03-24 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/scim_canna_imengine_factory.cpp,
+	  src/scim_canna_imengine_factory.h,
+	  src/scim_canna_imenigne_prefs.h, src/canna_imengine_setup.cpp
+	  src/canna_jrkanji.cpp:
+	Added init file and server name preference.
+
+	* po/ja.po: Updated.
+
+2005-03-23 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/canna_jrkanji.h: Moved translate_key_event() to private field.
+
+2005-03-23 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/canna_jrkanji.cpp: Fixed odd behavior on symbols mode.
+	* po/ja.po: Updated.
+
+2005-03-23 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/canna_jrkanji.cpp: Removed some nosense modes.
+
+2005-03-22 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/scim_canna_imengine.cpp,
+	  src/canna_jrkanji.cpp, src/canna_jrkanji.h:
+	Added some properties to change input mode.
+
+2005-03-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/canna_jrkanji.cpp, src/canna_jrkanji.h,
+	  src/scim_canna_imengine.cpp:
+	Create a canna context per each CannaInstance.
+	Show property label.
+
+2005-03-20 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/scim_canna_imengine.cpp: Register empty PropertyList to clear
+	tollbar.
+
+2005-03-20 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Initial import into CVS.

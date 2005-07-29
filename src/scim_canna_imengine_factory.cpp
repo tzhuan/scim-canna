@@ -98,7 +98,11 @@ CannaFactory::CannaFactory (const String &lang,
                             const String &uuid,
                             const ConfigPointer &config)
     : m_uuid (uuid),
-      m_config (config)
+      m_config (config),
+      m_specify_init_file_name (SCIM_CANNA_CONFIG_SPECIFY_INIT_FILE_NAME_DEFAULT),
+      m_specify_server_name (SCIM_CANNA_CONFIG_SPECIFY_SERVER_NAME_DEFAULT),
+      m_init_file_name (SCIM_CANNA_CONFIG_INIT_FILE_NAME_DEFAULT),
+      m_server_name (SCIM_CANNA_CONFIG_SERVER_NAME_DEFAULT)
 {
     SCIM_DEBUG_IMENGINE(1) << "Create Canna Factory :\n";
     SCIM_DEBUG_IMENGINE(1) << "  Lang : " << lang << "\n";
@@ -171,6 +175,19 @@ void
 CannaFactory::reload_config (const ConfigPointer &config)
 {
     if (!config) return;
+
+    m_specify_init_file_name
+        = config->read (String (SCIM_CANNA_CONFIG_SPECIFY_INIT_FILE_NAME),
+                        SCIM_CANNA_CONFIG_SPECIFY_INIT_FILE_NAME_DEFAULT);
+    m_specify_server_name
+        = config->read (String (SCIM_CANNA_CONFIG_SPECIFY_SERVER_NAME),
+                        SCIM_CANNA_CONFIG_SPECIFY_SERVER_NAME_DEFAULT);
+    m_init_file_name
+        = config->read (String (SCIM_CANNA_CONFIG_INIT_FILE_NAME),
+                        SCIM_CANNA_CONFIG_INIT_FILE_NAME_DEFAULT);
+    m_server_name
+        = config->read (String (SCIM_CANNA_CONFIG_SERVER_NAME),
+                        String (SCIM_CANNA_CONFIG_SERVER_NAME_DEFAULT));
 
     m_actions.clear ();
 
