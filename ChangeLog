@@ -1,3 +1,7 @@
+2005-07-29 Takuro Ashie <ashie@homa.ne.jp>
+
+	* configure.ac: Version-0.1.1.
+
 2005-07-20 Takuro Ashie <ashie@homa.ne.jp>
 
 	* src/scim_canna_imengine.h: Fix a build problem.

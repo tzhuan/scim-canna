@@ -1,3 +1,8 @@
+Overview of Changes from scim-canna-0.1.0 to scim-canna-0.1.1
+=============================================================
+* Fix a build problem on GCC-4.0.
+* Minor improvements in setup UI.
+
 scim-canna-0.1.0
 =============================================================
 * Initial release.
