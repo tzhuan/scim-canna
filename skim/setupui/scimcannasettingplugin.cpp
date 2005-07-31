@@ -41,20 +41,14 @@ ScimCannaSettingPlugin::ScimCannaSettingPlugin(QWidget *parent,
      parent, args, CannaConfig::self() ),
    d(new ScimCannaSettingPluginPrivate)
 {
-    KGlobal::locale()->insertCatalogue("skim-scim-pinyin");
+    KGlobal::locale()->insertCatalogue("skim-scim-canna");
     d->ui = new CannaSettingUI(this);
     setMainWidget(d->ui);
-    
-    //FIXME: emit toggle signals to update corresponding connected widgets
-    d->ui->advancedCBox->setChecked(true);
-    d->ui->advancedCBox->toggle();
-    d->ui->kcfg__IMEngine_Pinyin_Ambiguities->toggle();
-    d->ui->kcfg__IMEngine_Pinyin_Ambiguities->toggle();
 }
 
 ScimCannaSettingPlugin::~ScimCannaSettingPlugin() 
 {
-    KGlobal::locale()->removeCatalogue("skim-scim-pinyin");
+    KGlobal::locale()->removeCatalogue("skim-scim-canna");
 }
 
 
