@@ -119,6 +119,7 @@ CannaFactory::CannaFactory (const String &lang,
 
 CannaFactory::~CannaFactory ()
 {
+    m_reload_signal_connection.disconnect ();
 }
 
 WideString
