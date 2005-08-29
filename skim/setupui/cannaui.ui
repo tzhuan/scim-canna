@@ -1,0 +1,121 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>CannaSettingUI</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>CannaSettingUI</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>564</width>
+            <height>347</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Canna</string>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>0</number>
+        </property>
+        <property name="spacing">
+            <number>0</number>
+        </property>
+        <widget class="QTabWidget">
+            <property name="name">
+                <cstring>tabWidget2</cstring>
+            </property>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>tab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>General</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QCheckBox" row="0" column="0">
+                        <property name="name">
+                            <cstring>kcfg__IMEngine_Canna_SpecifyInitFileName</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Specify initialize file :</string>
+                        </property>
+                    </widget>
+                    <widget class="QCheckBox" row="1" column="0">
+                        <property name="name">
+                            <cstring>kcfg__IMEngine_Canna_SpecifyServerName</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Specify server name :</string>
+                        </property>
+                    </widget>
+                    <widget class="KLineEdit" row="0" column="1">
+                        <property name="name">
+                            <cstring>kcfg__IMEngine_Canna_InitFileName</cstring>
+                        </property>
+                        <property name="enabled">
+                            <bool>false</bool>
+                        </property>
+                    </widget>
+                    <widget class="KLineEdit" row="1" column="1">
+                        <property name="name">
+                            <cstring>kcfg__IMEngine_Canna_ServerName</cstring>
+                        </property>
+                        <property name="enabled">
+                            <bool>false</bool>
+                        </property>
+                    </widget>
+                    <spacer row="2" column="1">
+                        <property name="name">
+                            <cstring>spacer1</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>21</width>
+                                <height>130</height>
+                            </size>
+                        </property>
+                    </spacer>
+                </grid>
+            </widget>
+        </widget>
+    </vbox>
+</widget>
+<customwidgets>
+</customwidgets>
+<connections>
+    <connection>
+        <sender>kcfg__IMEngine_Canna_SpecifyInitFileName</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>kcfg__IMEngine_Canna_InitFileName</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>kcfg__IMEngine_Canna_SpecifyServerName</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>kcfg__IMEngine_Canna_ServerName</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>tabWidget2</tabstop>
+</tabstops>
+<layoutdefaults spacing="6" margin="11"/>
+<includehints>
+    <includehint>klineedit.h</includehint>
+    <includehint>klineedit.h</includehint>
+</includehints>
+</UI>

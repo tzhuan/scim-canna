@@ -1,0 +1,14 @@
+.deps
+.libs
+Makefile
+Makefile.in
+kcm_skimplugin_scim_canna.la
+scimcannasettingplugin.lo
+scimcannasettingplugin.moc
+canna.cpp
+canna.h
+canna.lo
+cannaui.cpp
+cannaui.h
+cannaui.lo
+cannaui.moc
