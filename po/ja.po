@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scim-canna\n"
 "Report-Msgid-Bugs-To: ashie@homa.ne.jp\n"
-"POT-Creation-Date: 2005-07-28 10:29+0900\n"
+"POT-Creation-Date: 2005-08-29 10:33+0900\n"
 "PO-Revision-Date: 2005-03-24 10:57+0900\n"
 "Last-Translator: Takuro Ashie <ashie@homa.ne.jp>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -60,6 +60,12 @@ msgstr "部首"
 #: src/canna_jrkanji.cpp:140
 msgid "Search a kanji by bushu"
 msgstr "漢字を部首で検索"
+
+#: src/scim_canna_imengine_factory.cpp:135
+msgid ""
+"Copyright (C) 2005 Hiroyuki Ikezoe <poincare@ikezoe.net>\n"
+"Copyright (C) 2005 Takuro Ashie <ashie@homa.ne.jp>"
+msgstr ""
 
 #: src/scim_canna_imengine_setup.cpp:85
 msgid "Canna"
