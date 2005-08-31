@@ -56,13 +56,13 @@ CannaJRKanji::CannaJRKanji (CannaInstance *ci)
     // initialize canna library
     if (n_instance == 0) {
         if (m_canna->m_factory->m_specify_init_file_name) {
-            jrKanjiControl (0, KC_SETINITFILENAME,
-                            (char *) m_canna->m_factory->m_init_file_name.c_str());
+            const char *file = m_canna->m_factory->m_init_file_name.c_str();
+            jrKanjiControl (0, KC_SETINITFILENAME, (char *) file);
         }
 
         if (m_canna->m_factory->m_specify_server_name) {
-            jrKanjiControl (0, KC_SETSERVERNAME,
-                            (char *) m_canna->m_factory->m_server_name.c_str());
+            const char *server = m_canna->m_factory->m_server_name.c_str();
+            jrKanjiControl (0, KC_SETSERVERNAME, (char *) server);
         }
 
         jrKanjiControl (0, KC_INITIALIZE, (char *) &warn);
@@ -437,9 +437,6 @@ CannaJRKanji::set_guide_line (void)
             m_aux_string_visible = false;
             m_canna->hide_aux_string ();
         }
-    } else {
-        //m_canna->hide_aux_string ();
-        //m_canna->update_aux_string (utf8_mbstowcs (""));
     }
 }
 
