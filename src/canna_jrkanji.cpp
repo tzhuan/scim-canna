@@ -30,6 +30,7 @@
 #include "intl.h"
 
 #define SCIM_PROP_INPUT_MODE                 "/IMEngine/Canna/InputMode"
+#define SCIM_PROP_INPUT_MODE_OFF             "/IMEngine/Canna/InputMode/Off"
 #define SCIM_PROP_INPUT_MODE_HIRAGANA        "/IMEngine/Canna/InputMode/Hiragana"
 #define SCIM_PROP_INPUT_MODE_KATAKANA        "/IMEngine/Canna/InputMode/Katakana"
 #define SCIM_PROP_INPUT_MODE_HALF_KATAKANA   "/IMEngine/Canna/InputMode/HalfKatakana"
@@ -45,6 +46,7 @@ static unsigned int last_created_context_id = 0;
 
 CannaJRKanji::CannaJRKanji (CannaInstance *ci)
     : m_canna (ci),
+      m_enabled (false),
       m_context_id (last_created_context_id++),
       m_preediting (false),
       m_aux_string_visible (false)
@@ -100,44 +102,81 @@ CannaJRKanji::~CannaJRKanji ()
     }
 }
 
+bool
+match_key_event (const KeyEventList &list, const KeyEvent &key,
+                 uint16 ignore_mask)
+{
+    KeyEventList::const_iterator kit;
+
+    for (kit = list.begin (); kit != list.end (); kit++) {
+        uint16 mod1, mod2;
+
+        mod1 = kit->mask;
+        mod2 = key.mask;
+        mod1 &= ~ignore_mask;
+        mod2 &= ~ignore_mask;
+
+        if (key.code == kit->code && mod1 == mod2)
+             return true;
+    }
+    return false;
+}
+
 void
 CannaJRKanji::install_properties (void)
 {
+    m_properties.clear ();
+
     Property prop;
+
     prop = Property (SCIM_PROP_INPUT_MODE,
-                     _("Input mode"), String (""), _("Input mode"));
+                     _("Input mode"), String (""),
+                     _("Input mode"));
+    m_properties.push_back (prop);
+
+    prop = Property (SCIM_PROP_INPUT_MODE_OFF,
+                     _("Off"), String (""),
+                     _("Off"));
     m_properties.push_back (prop);
 
     prop = Property (SCIM_PROP_INPUT_MODE_HIRAGANA,
-                     _("Hiragana"), String (""), _("Hiragana"));
+                     _("Hiragana"), String (""),
+                     _("Hiragana"));
     m_properties.push_back (prop);
 
     prop = Property (SCIM_PROP_INPUT_MODE_KATAKANA,
-                     _("Katakana"), String (""), _("Katakana"));
+                     _("Katakana"), String (""),
+                     _("Katakana"));
     m_properties.push_back (prop);
 
     prop = Property (SCIM_PROP_INPUT_MODE_HALF_KATAKANA,
-                     _("Half width katakana"), String (""), _("Half width katakana"));
+                     _("Half width katakana"), String (""),
+                     _("Half width katakana"));
     m_properties.push_back (prop);
 
     prop = Property (SCIM_PROP_INPUT_MODE_ALPHABET,
-                     _("Alphabet"), String (""), _("Alphabet"));
+                     _("Alphabet"), String (""),
+                     _("Alphabet"));
     m_properties.push_back (prop);
 
     prop = Property (SCIM_PROP_INPUT_MODE_WIDE_ALPHABET,
-                     _("Wide alphabet"), String (""), _("Wide alphabet"));
+                     _("Wide alphabet"), String (""),
+                     _("Wide alphabet"));
     m_properties.push_back (prop);
 
     prop = Property (SCIM_PROP_INPUT_MODE_KIGO,
-                     _("Symbols"), String (""), _("Search a symbol"));
+                     _("Symbols"), String (""),
+                     _("Search a symbol"));
     m_properties.push_back (prop);
 
     prop = Property (SCIM_PROP_INPUT_MODE_HEX,
-                     _("Hex"), String (""), _("Search a kanji by hex"));
+                     _("Hex"), String (""),
+                     _("Search a kanji by hex"));
     m_properties.push_back (prop);
 
     prop = Property (SCIM_PROP_INPUT_MODE_BUSHU,
-                     _("Bushu"), String (""), _("Search a kanji by bushu"));
+                     _("Bushu"), String (""),
+                     _("Search a kanji by bushu"));
     m_properties.push_back (prop);
 }
 
@@ -305,6 +344,16 @@ CannaJRKanji::process_key_event (const KeyEvent &key)
     int size = 1024, n, ch;
     char buf[1024 + 1];
 
+    if (match_key_event (m_canna->m_factory->m_on_off_key, key, 0)) {
+        m_enabled = !m_enabled;
+        set_mode_line ();
+        m_canna->reset ();
+        return true;
+    }
+
+    if (!m_enabled)
+        return false;
+
     ch = translate_key_event (key);
     if (ch == 0xffff)
         return false;
@@ -374,28 +423,39 @@ CannaJRKanji::trigger_property (const String &property)
 {
     int val = m_ksv.val;
 
-    if (property == SCIM_PROP_INPUT_MODE_HIRAGANA) {
+    if (property == SCIM_PROP_INPUT_MODE_OFF) {
+        m_enabled = false;
+        set_mode_line ();
+    } else if (property == SCIM_PROP_INPUT_MODE_HIRAGANA) {
+        m_enabled = true;
         m_ksv.val = CANNA_MODE_ZenHiraHenkanMode;
 
     } else if (property == SCIM_PROP_INPUT_MODE_KATAKANA) {
+        m_enabled = true;
         m_ksv.val = CANNA_MODE_ZenKataHenkanMode;
 
     } else if (property == SCIM_PROP_INPUT_MODE_HALF_KATAKANA) {
+        m_enabled = true;
         m_ksv.val = CANNA_MODE_HanKataHenkanMode;
 
     } else if (property == SCIM_PROP_INPUT_MODE_ALPHABET) {
+        m_enabled = true;
         m_ksv.val = CANNA_MODE_HanAlphaHenkanMode;
 
     } else if (property == SCIM_PROP_INPUT_MODE_WIDE_ALPHABET) {
+        m_enabled = true;
         m_ksv.val = CANNA_MODE_ZenAlphaHenkanMode;
 
     } else if (property == SCIM_PROP_INPUT_MODE_KIGO) {
+        m_enabled = true;
         m_ksv.val = CANNA_MODE_KigoMode;
 
     } else if (property == SCIM_PROP_INPUT_MODE_HEX) {
+        m_enabled = true;
         m_ksv.val = CANNA_MODE_HexMode;
 
     } else if (property == SCIM_PROP_INPUT_MODE_BUSHU) {
+        m_enabled = true;
         m_ksv.val = CANNA_MODE_BushuMode;
     }
 
@@ -409,13 +469,19 @@ CannaJRKanji::trigger_property (const String &property)
 void
 CannaJRKanji::set_mode_line (void)
 {
-    int max_mode_len = jrKanjiControl(m_context_id, KC_QUERYMAXMODESTR, 0);
-    unsigned char current_mode[max_mode_len];
-    jrKanjiControl(m_context_id, KC_QUERYMODE, (char *) current_mode);
-    WideString dest;
-    m_iconv.convert (dest, (const char *) current_mode);
-    m_properties[0].set_label (utf8_wcstombs(dest).c_str());
-    m_canna->register_properties (m_properties);
+    if (m_enabled) {
+        int max_mode_len = jrKanjiControl(m_context_id,
+                                          KC_QUERYMAXMODESTR, 0);
+        unsigned char current_mode[max_mode_len];
+        jrKanjiControl(m_context_id, KC_QUERYMODE, (char *) current_mode);
+        WideString dest;
+        m_iconv.convert (dest, (const char *) current_mode);
+        m_properties[0].set_label (utf8_wcstombs(dest).c_str());
+        m_canna->register_properties (m_properties);
+    } else {
+        m_properties[0].set_label (_("[Off]"));
+        m_canna->register_properties (m_properties);
+    }
 }
 
 void
@@ -480,4 +546,10 @@ CannaJRKanji::show_aux_string (void)
         return;
 
     set_guide_line ();
+}
+
+void
+CannaJRKanji::reset (void)
+{
+    jrKanjiControl (m_context_id, KC_KILL, (char *) &m_ksv);
 }

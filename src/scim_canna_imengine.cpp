@@ -75,12 +75,6 @@ CannaInstance::process_key_event (const KeyEvent& key)
         key.code == SCIM_KEY_Alt_L || key.code == SCIM_KEY_Alt_R)
         return false;
 
-#if 0
-    // lookup user defined key binds
-    if (process_key_event_lookup_keybind (key))
-        return true;
-#endif
-
     if (m_canna_jrkanji.process_key_event (key))
         return true;
 
@@ -152,11 +146,15 @@ CannaInstance::reset ()
 {
     SCIM_DEBUG_IMENGINE(2) << "reset.\n";
 
-    m_lookup_table.clear ();
+    m_canna_jrkanji.reset ();
+
     update_preedit_caret (0);
     update_preedit_string (utf8_mbstowcs (""));
-    hide_lookup_table ();
+    update_aux_string (utf8_mbstowcs (""));
+    m_lookup_table.clear ();
     hide_preedit_string ();
+    hide_lookup_table ();
+    hide_aux_string ();
 }
 
 void

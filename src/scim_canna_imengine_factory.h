@@ -49,6 +49,7 @@ private:
     bool           m_specify_server_name;
     String         m_init_file_name;
     String         m_server_name;
+    KeyEventList   m_on_off_key;
 
     /* for key bindings */
     std::vector<CannaAction> m_actions;

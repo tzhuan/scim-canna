@@ -47,6 +47,7 @@ public:
     void          show_preedit_string (void);
     bool          aux_string_visible  (void);
     void          show_aux_string     (void);
+    void          reset               (void);
 
 private:
     int           translate_key_event (const KeyEvent &key);
@@ -65,6 +66,7 @@ private:
 
     IConvert               m_iconv;
 
+    bool                   m_enabled;
     unsigned int           m_context_id;
     jrKanjiStatus          m_ks;
     jrKanjiStatusWithValue m_ksv;
