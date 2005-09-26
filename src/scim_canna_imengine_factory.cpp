@@ -134,8 +134,8 @@ WideString
 CannaFactory::get_authors () const
 {
     return utf8_mbstowcs (
-        _("Copyright (C) 2005 Hiroyuki Ikezoe <poincare@ikezoe.net>\n"
-          "Copyright (C) 2005 Takuro Ashie <ashie@homa.ne.jp>"));
+        _("Copyright (C) 2005 Takuro Ashie <ashie@homa.ne.jp>\n"
+          "Copyright (C) 2004 Hiroyuki Ikezoe <poincare@ikezoe.net>"));
 }
 
 WideString
