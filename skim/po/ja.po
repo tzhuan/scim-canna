@@ -1,0 +1,41 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: skim-scim-canna\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-10-17 00:41+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Takuro Ashie <ashie@homa.ne.jp>\n"
+"Language-Team: Japanese <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../setupui/cannaui.cpp:84
+msgid "Canna"
+msgstr "Canna"
+
+#: ../setupui/cannaui.cpp:85
+msgid "Specif&y initialize file :"
+msgstr "初期化ファイルを指定 :"
+
+#: ../setupui/cannaui.cpp:86
+msgid "Alt+Y"
+msgstr "Alt+Y"
+
+#: ../setupui/cannaui.cpp:87
+msgid "Specify server &name :"
+msgstr "サーバ名を指定 :"
+
+#: ../setupui/cannaui.cpp:88
+msgid "Alt+N"
+msgstr "Alt+N"
+
+#: ../setupui/cannaui.cpp:89
+msgid "General"
+msgstr "一般"
