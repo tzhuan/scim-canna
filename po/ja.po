@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scim-canna\n"
 "Report-Msgid-Bugs-To: ashie@homa.ne.jp\n"
-"POT-Creation-Date: 2005-08-29 10:33+0900\n"
+"POT-Creation-Date: 2005-10-16 22:29+0000\n"
 "PO-Revision-Date: 2005-03-24 10:57+0900\n"
 "Last-Translator: Takuro Ashie <ashie@homa.ne.jp>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -13,58 +13,66 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/canna_jrkanji.cpp:108
+#: src/canna_jrkanji.cpp:133 src/canna_jrkanji.cpp:134
 msgid "Input mode"
 msgstr "入力モード"
 
-#: src/canna_jrkanji.cpp:112
+#: src/canna_jrkanji.cpp:138 src/canna_jrkanji.cpp:139
+msgid "Off"
+msgstr ""
+
+#: src/canna_jrkanji.cpp:143 src/canna_jrkanji.cpp:144
 msgid "Hiragana"
 msgstr "ひらがな"
 
-#: src/canna_jrkanji.cpp:116
+#: src/canna_jrkanji.cpp:148 src/canna_jrkanji.cpp:149
 msgid "Katakana"
 msgstr "カタカナ"
 
-#: src/canna_jrkanji.cpp:120
+#: src/canna_jrkanji.cpp:153 src/canna_jrkanji.cpp:154
 msgid "Half width katakana"
 msgstr "半角カタカナ"
 
-#: src/canna_jrkanji.cpp:124
+#: src/canna_jrkanji.cpp:158 src/canna_jrkanji.cpp:159
 msgid "Alphabet"
 msgstr "英数"
 
-#: src/canna_jrkanji.cpp:128
+#: src/canna_jrkanji.cpp:163 src/canna_jrkanji.cpp:164
 msgid "Wide alphabet"
 msgstr "全角英数"
 
-#: src/canna_jrkanji.cpp:132
+#: src/canna_jrkanji.cpp:168
 msgid "Symbols"
 msgstr "記号"
 
-#: src/canna_jrkanji.cpp:132
+#: src/canna_jrkanji.cpp:169
 msgid "Search a symbol"
 msgstr "記号を入力"
 
-#: src/canna_jrkanji.cpp:136
+#: src/canna_jrkanji.cpp:173
 msgid "Hex"
 msgstr "16進"
 
-#: src/canna_jrkanji.cpp:136
+#: src/canna_jrkanji.cpp:174
 msgid "Search a kanji by hex"
 msgstr "漢字を16進コードで検索"
 
-#: src/canna_jrkanji.cpp:140
+#: src/canna_jrkanji.cpp:178
 msgid "Bushu"
 msgstr "部首"
 
-#: src/canna_jrkanji.cpp:140
+#: src/canna_jrkanji.cpp:179
 msgid "Search a kanji by bushu"
 msgstr "漢字を部首で検索"
 
-#: src/scim_canna_imengine_factory.cpp:135
+#: src/canna_jrkanji.cpp:482
+msgid "[Off]"
+msgstr ""
+
+#: src/scim_canna_imengine_factory.cpp:137
 msgid ""
-"Copyright (C) 2005 Hiroyuki Ikezoe <poincare@ikezoe.net>\n"
-"Copyright (C) 2005 Takuro Ashie <ashie@homa.ne.jp>"
+"Copyright (C) 2005 Takuro Ashie <ashie@homa.ne.jp>\n"
+"Copyright (C) 2004 Hiroyuki Ikezoe <poincare@ikezoe.net>"
 msgstr ""
 
 #: src/scim_canna_imengine_setup.cpp:85

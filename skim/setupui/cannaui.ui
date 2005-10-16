@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>564</width>
-            <height>347</height>
+            <width>410</width>
+            <height>304</height>
         </rect>
     </property>
     <property name="caption">
@@ -45,7 +45,10 @@
                             <cstring>kcfg__IMEngine_Canna_SpecifyInitFileName</cstring>
                         </property>
                         <property name="text">
-                            <string>Specify initialize file :</string>
+                            <string>Specif&amp;y initialize file :</string>
+                        </property>
+                        <property name="accel">
+                            <string>Alt+Y</string>
                         </property>
                     </widget>
                     <widget class="QCheckBox" row="1" column="0">
@@ -53,7 +56,10 @@
                             <cstring>kcfg__IMEngine_Canna_SpecifyServerName</cstring>
                         </property>
                         <property name="text">
-                            <string>Specify server name :</string>
+                            <string>Specify server &amp;name :</string>
+                        </property>
+                        <property name="accel">
+                            <string>Alt+N</string>
                         </property>
                     </widget>
                     <widget class="KLineEdit" row="0" column="1">
