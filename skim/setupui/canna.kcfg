@@ -7,9 +7,9 @@
       <label>Whether specify init file by manually or not.</label>
       <default>false</default>
     </entry>
-    <entry name="_IMEngine_Canna_InitFileName" key="/IMEngine/Canna/InitFileName" type="String">
+    <entry name="_IMEngine_Canna_InitFileName" key="/IMEngine/Canna/InitFileName" type="Path">
       <label>The Canna initialize file name to use.</label>
-      <default></default>
+      <default>$HOME/.canna</default>
     </entry>
 
     <entry name="_IMEngine_Canna_SpecifyServerName" key="/IMEngine/Canna/SpecifyServerName" type="Bool">
