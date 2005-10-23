@@ -17,7 +17,7 @@ msgstr ""
 
 #: ../setupui/cannaui.cpp:84
 msgid "Canna"
-msgstr "Canna"
+msgstr "かんな"
 
 #: ../setupui/cannaui.cpp:85
 msgid "Specif&y initialize file :"
