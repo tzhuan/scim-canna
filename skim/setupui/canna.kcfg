@@ -8,7 +8,8 @@
       <default>false</default>
     </entry>
     <entry name="_IMEngine_Canna_InitFileName" key="/IMEngine/Canna/InitFileName" type="Path">
-      <label>The Canna initialize file name to use.</label>
+      <label>Initialize file</label>
+      <whatsthis>The Canna initialize file name to use.</whatsthis>
       <default>$HOME/.canna</default>
     </entry>
 
@@ -17,7 +18,8 @@
       <default>false</default>
     </entry>
     <entry name="_IMEngine_Canna_ServerName" key="/IMEngine/Canna/ServerName" type="String">
-      <label>The Canna host name to connect.</label>
+      <label>Hostname</label>
+      <whatsthis>The Canna host name to connect.</whatsthis>
       <default>localhost</default>
     </entry>
   </group>
