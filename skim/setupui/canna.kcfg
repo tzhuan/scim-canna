@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
+<kcfg>
+  <kcfgfile name="skimrc"/>
+  <group name="SCIM">
+    <entry name="_IMEngine_Canna_SpecifyInitFileName" key="/IMEngine/Canna/SpecifyInitFileName" type="Bool">
+      <label>Whether specify init file by manually or not.</label>
+      <default>false</default>
+    </entry>
+    <entry name="_IMEngine_Canna_InitFileName" key="/IMEngine/Canna/InitFileName" type="String">
+      <label>The Canna initialize file name to use.</label>
+      <default></default>
+    </entry>
+
+    <entry name="_IMEngine_Canna_SpecifyServerName" key="/IMEngine/Canna/SpecifyServerName" type="Bool">
+      <label>Whether specify canna server by manually or not.</label>
+      <default>false</default>
+    </entry>
+    <entry name="_IMEngine_Canna_ServerName" key="/IMEngine/Canna/ServerName" type="String">
+      <label>The Canna host name to connect.</label>
+      <default>localhost</default>
+    </entry>
+  </group>
+</kcfg>
