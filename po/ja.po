@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scim-canna\n"
 "Report-Msgid-Bugs-To: ashie@homa.ne.jp\n"
-"POT-Creation-Date: 2005-10-16 22:29+0000\n"
+"POT-Creation-Date: 2005-11-08 17:22+0900\n"
 "PO-Revision-Date: 2005-03-24 10:57+0900\n"
 "Last-Translator: Takuro Ashie <ashie@homa.ne.jp>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -19,7 +19,7 @@ msgstr "入力モード"
 
 #: src/canna_jrkanji.cpp:138 src/canna_jrkanji.cpp:139
 msgid "Off"
-msgstr ""
+msgstr "オフ"
 
 #: src/canna_jrkanji.cpp:143 src/canna_jrkanji.cpp:144
 msgid "Hiragana"
@@ -67,37 +67,133 @@ msgstr "漢字を部首で検索"
 
 #: src/canna_jrkanji.cpp:482
 msgid "[Off]"
-msgstr ""
+msgstr "[オフ]"
 
 #: src/scim_canna_imengine_factory.cpp:137
 msgid ""
-"Copyright (C) 2005 Takuro Ashie <ashie@homa.ne.jp>\n"
-"Copyright (C) 2004 Hiroyuki Ikezoe <poincare@ikezoe.net>"
+"Authors of scim-canna:\n"
+"  Copyright (C) 2005 Takuro Ashie <ashie@homa.ne.jp>\n"
+"  Copyright (C) 2004 Hiroyuki Ikezoe <poincare@ikezoe.net>\n"
+"  \n"
+"Authors of Canna:\n"
+"  Copyright (C) 1990-1997 NEC Corporation, Tokyo, Japan.\n"
+"  Copyright (C) 2002-2004 Canna Project.\n"
 msgstr ""
+"scim-cannaの作者:\n"
+"  Copyright (C) 2005 Takuro Ashie <ashie@homa.ne.jp>\n"
+"  Copyright (C) 2004 Hiroyuki Ikezoe <poincare@ikezoe.net>\n"
+"  \n"
+"かんなの作者:\n"
+"  Copyright (C) 1990-1997 NEC Corporation, Tokyo, Japan.\n"
+"  Copyright (C) 2002-2004 Canna Project. \n"
+
+#: src/scim_canna_imengine_factory.cpp:156
+msgid ""
+"Basic operation:\n"
+"  \n"
+msgstr ""
+"基本操作:\n"
+"  \n"
+
+#: src/scim_canna_imengine_factory.cpp:160
+msgid ""
+"1. Switch input mode:\n"
+"  You can toggle on/off Japanese mode by pressing Zenkaku_Hankaku key or\n"
+"  Shift+Space.\n"
+"  \n"
+msgstr ""
+"1. 入力モードの切り替え:\n"
+"  日本語入力モードのON/OFFは全角/半角キーあるいはShift+Spaceで切り替えるこ\n"
+"  とができます。\n"
+"  \n"
+
+#: src/scim_canna_imengine_factory.cpp:166
+msgid ""
+"2. Input hiragana and katakana:\n"
+"  You can input hiragana by inputting romaji. The preedit string can be\n"
+"  converted to katakana or alphabet by pressing Control+N or Control+P.\n"
+"  If you want to cancel inputting, please press Control+G\n"
+"  \n"
+msgstr ""
+"2. ひらがなとカタカナの入力:\n"
+"  ひらがなの入力はローマ字を入力することで行うことができます。編集文字列\n"
+"  は、Control+NかControl+Pを押すことによって、カタカナやアルファベットへ\n"
+"  変換することができます。\n"
+"  入力をキャンセルしたい場合は、Control+Gを押して下さい。\n"
+"  \n"
+
+#: src/scim_canna_imengine_factory.cpp:173
+msgid ""
+"3. Convert to kanji:\n"
+"  After inputting hiragana, you can convert it to kanji by pressing Space\n"
+"  key. When you press Space key once again, available candidates will be\n"
+"  shown. Press Space or Control+F to select a next candidate, and press\n"
+"  Control+B to select a previous candidate. Press Control+G to hide\n"
+"  candidates. Then you can commit the preedit string by pressing Enter\n"
+"  key or Control+M.\n"
+"  \n"
+msgstr ""
+"3. 漢字への変換:\n"
+"  ひらがなを入力した後、Spaceキーを押すことによって漢字に変換することができ\n"
+"  ます。もう一度Spaceキーを押すと、選択可能な候補が表示されます。Spaceか\n"
+"  Control+Fを押すと次の候補を選択することができ、Control+Bを押すと前の候補\n"
+"  を選択することができます。\n"
+"  Control+Gを押すと、候補が隠されます。\n"
+"  Enterを押すと編集文字列を確定します。\n"
+"  \n"
+
+#: src/scim_canna_imengine_factory.cpp:183
+msgid ""
+"4. Modify sentence segments:\n"
+"  After converting to kanji and before showing candidates or commit, you\n"
+"  can modify sentence segments. Press left and right cursor key or\n"
+"  Control+F and Control+B to select a next or previous segment. Press\n"
+"  Control+I or Control+O to shrink or extend the selected segment.\n"
+"  \n"
+msgstr ""
+"4. 文節の編集:\n"
+"  漢字に変換した後、候補の表示や確定を行う前に、文節を編集することができま\n"
+"  す。左右カーソルキーかControl+FやControl+Bで次か前の文節を選択すること\n"
+"  ができます。Control+IやControl+Oを押すことで選択文節を縮めたり伸ばした\n"
+"  りすることができます。\n"
+"  \n"
+
+#: src/scim_canna_imengine_factory.cpp:191
+msgid ""
+"5. Additional features:\n"
+"  You can access to additional features of Canna by pressing Home key.\n"
+"  It includes searching kanji letters, registering a word and environment\n"
+"  preferences.\n"
+"  \n"
+msgstr ""
+"5. 補助機能:\n"
+"  Homeキーを押すと、かんなの補助機能にアクセスすることができます。単漢字検\n"
+"  索や単語登録、環境設定を行うことができます。\n"
+"  \n"
 
 #: src/scim_canna_imengine_setup.cpp:85
 msgid "Canna"
-msgstr "Canna"
+msgstr "かんな"
 
 #: src/scim_canna_imengine_setup.cpp:90
 msgid "An Canna IMEngine Module."
-msgstr "Canna IMEngineモジュール"
+msgstr "かんなIMEngineモジュール"
 
 #: src/scim_canna_imengine_setup.cpp:173
 msgid "Specify Canna initialize file"
-msgstr "Canna初期化ファイルを指定する"
+msgstr "かんな初期化ファイルを指定する"
 
 #: src/scim_canna_imengine_setup.cpp:182
 msgid "Specify Canna server name"
-msgstr "Cannaサーバを指定する"
+msgstr "かんなサーバを指定する"
 
 #: src/scim_canna_imengine_setup.cpp:198
 msgid "The Canna initialize file name to use."
-msgstr "使用するCanna初期化ファイルを指定します"
+msgstr "使用するかんな初期化ファイルを指定します"
 
 #: src/scim_canna_imengine_setup.cpp:207
 msgid "The Canna host name to connect."
-msgstr "接続するCannaサーバが稼働しているホストの名前を指定します"
+msgstr "接続するかんなサーバが稼働しているホストの名前を指定します"
 
 #: src/scim_canna_imengine_setup.cpp:288
 msgid "Common keys"
@@ -158,564 +254,3 @@ msgstr "辞書"
 #: src/scim_canna_imengine_setup.cpp:1056
 msgid "Set key filter"
 msgstr "キーフィルターをセット"
-
-#~ msgid "Candidates keys (Direct select)"
-#~ msgstr "候補選択キー (直接選択)"
-
-#~ msgid "Predict while typing letters."
-#~ msgstr "文字入力中に予測する"
-
-#~ msgid "PRIME"
-#~ msgstr "PRIME"
-
-#~ msgid "Commit keys:"
-#~ msgstr "確定:"
-
-#~ msgid "Select commit keys"
-#~ msgstr "確定キーの設定"
-
-#~ msgid "The key events to commit the preedit string. "
-#~ msgstr "文字列を確定するキーイベント"
-
-#~ msgid "Commit witout learn keys:"
-#~ msgstr "学習せずに確定:"
-
-#~ msgid "Select commit witout learn keys"
-#~ msgstr "学習せずに文字列を確定するキーの設定"
-
-#~ msgid "The key events to commit the preedit string without learn. "
-#~ msgstr "学習せずに文字列を確定するキーイベント"
-
-#~ msgid "Convert keys:"
-#~ msgstr "変換:"
-
-#~ msgid "Select convert keys"
-#~ msgstr "変換キーの設定"
-
-#~ msgid "The key events to convert the preedit string to kanji. "
-#~ msgstr "文字列を漢字に変換するキーイベント"
-
-#~ msgid "Cancel keys:"
-#~ msgstr "キャンセル:"
-
-#~ msgid "Select cancel keys"
-#~ msgstr "キャンセルキーの設定"
-
-#~ msgid "The key events to cancel preediting or converting. "
-#~ msgstr "文字変換や文字入力をキャンセルするキーイベント"
-
-#~ msgid "Backspace keys:"
-#~ msgstr "バックスペース:"
-
-#~ msgid "Select backspace keys"
-#~ msgstr "バックスペースキーの設定"
-
-#~ msgid "The key events to delete a character before caret. "
-#~ msgstr "キャレットの前の文字を削除するキーイベント"
-
-#~ msgid "Delete keys:"
-#~ msgstr "削除:"
-
-#~ msgid "The key events to delete a character after caret. "
-#~ msgstr "キャレットの後の文字を削除するキーイベント"
-
-#~ msgid "Space keys:"
-#~ msgstr "スペース:"
-
-#~ msgid "Select space keys"
-#~ msgstr "スペースキーの設定"
-
-#~ msgid "The key events to insert space letter on non-preediting state. "
-#~ msgstr "入力文字列が無い時にスペースを入力するキーイベント"
-
-#~ msgid "Alternative space keys:"
-#~ msgstr "全角スペース:"
-
-#~ msgid "Select alternative space keys"
-#~ msgstr "全角スペースキーの設定"
-
-#~ msgid ""
-#~ "The key events to insert alterenative space letter on non-preediting "
-#~ "state. "
-#~ msgstr "入力文字列が無い時に全角スペースを入力するキーイベント"
-
-#~ msgid "Register a word keys:"
-#~ msgstr "単語登録:"
-
-#~ msgid "Select register a word keys"
-#~ msgstr "単語登録キーの設定"
-
-#~ msgid "The key events to invoke registering a word mode. "
-#~ msgstr "単語登録モードを起動するキーイベント"
-
-#~ msgid "Default mode keys:"
-#~ msgstr "デフォルトモード:"
-
-#~ msgid "Select default mode keys"
-#~ msgstr "デフォルトモードキーの設定"
-
-#~ msgid "The key events to set to default mode. "
-#~ msgstr "デフォルトモードへ移行するキーイベント"
-
-#~ msgid "Katakana mode keys:"
-#~ msgstr "カタカナモード："
-
-#~ msgid "Select katakana mode keys"
-#~ msgstr "カタカナモードキーの設定"
-
-#~ msgid "The key events to set to katakana mode. "
-#~ msgstr "カタカナモードへ移行するキーイベント"
-
-#~ msgid "Half katakana mode keys:"
-#~ msgstr "半角カタカナモード:"
-
-#~ msgid "Select half katakana mode keys"
-#~ msgstr "半角カタカナモードキーの設定"
-
-#~ msgid "The key events to set to half katakana mode. "
-#~ msgstr "半角カタカナモードへ移行するキーイベント"
-
-#~ msgid "Wide ascii mode keys:"
-#~ msgstr "全角英数モード:"
-
-#~ msgid "Select wide ascii mode keys"
-#~ msgstr "全角英数モードキーの設定"
-
-#~ msgid "The key events to set to wide ascii mode. "
-#~ msgstr "全角英数モードへ移行するキーイベント"
-
-#~ msgid "Raw mode keys:"
-#~ msgstr "英数モード:"
-
-#~ msgid "Select raw mode keys"
-#~ msgstr "英数モードキーの設定"
-
-#~ msgid "The key events to set to raw mode. "
-#~ msgstr "英数モードへ移行するキーイベント"
-
-#~ msgid "Toggle language keys:"
-#~ msgstr "言語切り替え:"
-
-#~ msgid "Select toggle language keys"
-#~ msgstr "言語切り替キーの設定"
-
-#~ msgid "The key events to toggle language. "
-#~ msgstr "言語を切り替えるキーイベント"
-
-#~ msgid "Move to first keys:"
-#~ msgstr "最初へ移動:"
-
-#~ msgid "Select move caret to first keys"
-#~ msgstr "最初へ移動するキーの設定"
-
-#~ msgid "The key events to move the caret to the first of preedit string. "
-#~ msgstr "キャレットを文字列の先頭に移動するキーイベント"
-
-#~ msgid "Move to last keys:"
-#~ msgstr "最後へ移動:"
-
-#~ msgid "Select move caret to last keys"
-#~ msgstr "最後へ移動するキーの設定"
-
-#~ msgid "The key events to move the caret to the last of the preedit string. "
-#~ msgstr "キャレットを文字列の最後に移動するキーイベント"
-
-#~ msgid "Move forward keys:"
-#~ msgstr "前方へ移動:"
-
-#~ msgid "Select move caret forward keys"
-#~ msgstr "前方へ移動するキーの設定"
-
-#~ msgid "The key events to move the caret to forward. "
-#~ msgstr "キャレットを前方に移動するキーイベント"
-
-#~ msgid "Move backward keys:"
-#~ msgstr "後方へ移動:"
-
-#~ msgid "Select move caret backward keys"
-#~ msgstr "後方へ移動するキーの設定"
-
-#~ msgid "The key events to move the caret to backward. "
-#~ msgstr "キャレットを後方へ移動するキーイベント"
-
-#~ msgid "Next keys:"
-#~ msgstr "次へ移動:"
-
-#~ msgid "Select next candidate keys"
-#~ msgstr "次へ移動するキーの設定"
-
-#~ msgid "The key events to select next candidate. "
-#~ msgstr "次の候補を選択するキーイベント"
-
-#~ msgid "Previous keys:"
-#~ msgstr "前へ移動:"
-
-#~ msgid "Select previous candidate keys"
-#~ msgstr "前へ移動するキーの設定"
-
-#~ msgid "The key events to select previous candidate. "
-#~ msgstr "前の候補を選択するキーイベント"
-
-#~ msgid "Page down keys:"
-#~ msgstr "次のページ："
-
-#~ msgid "Select page down candidates keys"
-#~ msgstr "次のページへ移動キーの設定"
-
-#~ msgid "The key events to select page down candidates. "
-#~ msgstr "次の候補ページへ移動するキーイベント"
-
-#~ msgid "Page up keys:"
-#~ msgstr "前のページ:"
-
-#~ msgid "Select page up candidates keys"
-#~ msgstr "前のページへ移動するキーの設定"
-
-#~ msgid "The key events to select page up candidates. "
-#~ msgstr "前の候補ページへ移動するキーイベント"
-
-#~ msgid "1st candidate keys:"
-#~ msgstr "最初の候補:"
-
-#~ msgid "Select keys to select 1st candidate"
-#~ msgstr "最初の候補を選択するキーの設定"
-
-#~ msgid "The key events to select 1st candidate. "
-#~ msgstr "最初の候補を選択するキーイベント"
-
-#~ msgid "2nd candidate keys:"
-#~ msgstr "2番目の候補:"
-
-#~ msgid "Select keys to select 2nd candidate"
-#~ msgstr "2番目の候補を選択するキーの設定"
-
-#~ msgid "The key events to select 2nd candidate. "
-#~ msgstr "2番得目の候補を選択するキーイベント"
-
-#~ msgid "3rd candidate keys:"
-#~ msgstr "3番目の候補:"
-
-#~ msgid "Select keys to select 3rd candidate"
-#~ msgstr "3番目の候補を選択するキーの設定"
-
-#~ msgid "The key events to select 3rd candidate. "
-#~ msgstr "3番得目の候補を選択するキーイベント"
-
-#~ msgid "4th candidate keys:"
-#~ msgstr "4番目の候補:"
-
-#~ msgid "Select keys to select 4th candidate"
-#~ msgstr "4番目の候補を選択するキーの設定"
-
-#~ msgid "The key events to select 4th candidate. "
-#~ msgstr "4番目の候補を選択するキーイベント"
-
-#~ msgid "5th candidate keys:"
-#~ msgstr "5番目の候補:"
-
-#~ msgid "Select keys to select 5th candidate"
-#~ msgstr "5番目の候補を選択するキーの設定"
-
-#~ msgid "The key events to select 5th candidate. "
-#~ msgstr "5番目の候補を選択するキーイベント"
-
-#~ msgid "6th candidate keys:"
-#~ msgstr "6番目の候補:"
-
-#~ msgid "Select keys to select 6th candidate"
-#~ msgstr "6番目の候補を選択するキーの設定"
-
-#~ msgid "The key events to select 6th candidate. "
-#~ msgstr "6番目の候補を選択するキーイベント"
-
-#~ msgid "7th candidate keys:"
-#~ msgstr "7番目の候補:"
-
-#~ msgid "Select keys to select 7th candidate"
-#~ msgstr "7番目の候補を選択するキーの設定"
-
-#~ msgid "The key events to select 7th candidate. "
-#~ msgstr "7番目の候補を選択するキーイベント"
-
-#~ msgid "8th candidate keys:"
-#~ msgstr "8番目の候補:"
-
-#~ msgid "Select keys to select 8th candidate"
-#~ msgstr "8番目の候補を選択するキーの設定"
-
-#~ msgid "The key events to select 8th candidate. "
-#~ msgstr "8番目の候補を選択するキーイベント"
-
-#~ msgid "9th candidate keys:"
-#~ msgstr "9番目の候補:"
-
-#~ msgid "Select keys to select 9th candidate"
-#~ msgstr "9番目の候補を選択するキーの設定"
-
-#~ msgid "The key events to select 9th candidate. "
-#~ msgstr "9番目の候補を選択するキーイベント"
-
-#~ msgid "10th candidate keys:"
-#~ msgstr "10番目の候補:"
-
-#~ msgid "Select keys to select 10th candidate"
-#~ msgstr "10番目の候補を選択するキーの設定"
-
-#~ msgid "The key events to select 10th candidate. "
-#~ msgstr "10番目の候補を選択するキーイベント"
-
-#~ msgid "PRIME command:"
-#~ msgstr "PRIMEコマンド:"
-
-#~ msgid "The PRIME command to use as convert engine."
-#~ msgstr "変換エンジンとして使用する PRIMEコマンド"
-
-#~ msgid "Use auto registering a word feature"
-#~ msgstr "自動単語登録機能を使用する"
-
-#~ msgid ""
-#~ "Invoke the registering a word mode when the cursor in the candidates "
-#~ "window is move to out of range."
-#~ msgstr ""
-#~ "候補ウィンドウのカーソルが範囲外へ移動した時に単語登録機能を起動する"
-
-#~ msgid "Commit on inputting upper letter"
-#~ msgstr "大文字入力時に確定する"
-
-#~ msgid "Commit previous preedit string when a upper letter is entered."
-#~ msgstr "大文字が入力された時にそれ以前の入力文字列を確定する"
-
-#~ msgid "Show annotation of the word on the candidates window"
-#~ msgstr "候補ウィンドウ上に単語の注釈を表示する"
-
-#~ msgid "Show annotation of the word on candidates window."
-#~ msgstr "候補ウィンドウ上に単語の注釈を表示する"
-
-#~ msgid "Show usage of the word on candidates window"
-#~ msgstr "候補ウィンドウ上に単語の用例を表示する"
-
-#~ msgid "Show usage of the word on the candidates window."
-#~ msgstr "候補ウィンドウ上に単語の用例を表示する"
-
-#~ msgid "Register a word:"
-#~ msgstr "単語登録:"
-
-#~ msgid "["
-#~ msgstr "["
-
-#~ msgid "|"
-#~ msgstr "|"
-
-#~ msgid "]"
-#~ msgstr "]"
-
-#~ msgid "Show annotation on candidates window."
-#~ msgstr "候補ウィンドウ上に単語の注釈を表示する"
-
-#~ msgid "Prime"
-#~ msgstr "Prime"
-
-#~ msgid "Latin"
-#~ msgstr "英数"
-
-#~ msgid "Direct input"
-#~ msgstr "直接入力"
-
-#~ msgid "Typing method"
-#~ msgstr "入力方式"
-
-#~ msgid "Roma"
-#~ msgstr "ローマ字"
-
-#~ msgid "Period style"
-#~ msgstr "句読点スタイル"
-
-#~ msgid "Dictionary menu"
-#~ msgstr "辞書メニュー"
-
-#~ msgid "Edit the dictionary"
-#~ msgstr "辞書を編集"
-
-#~ msgid "Launch the dictionary administration tool."
-#~ msgstr "辞書管理ツールを起動"
-
-#~ msgid "Add a word to the dictorinay."
-#~ msgstr "単語を辞書に追加"
-
-#~ msgid "Anthy"
-#~ msgstr "Anthy"
-
-#~ msgid "First segment keys:"
-#~ msgstr "最初の文節キー:"
-
-#~ msgid "Select first segment keys"
-#~ msgstr "最初の文節キーの設定"
-
-#~ msgid "The key events to select first segment. "
-#~ msgstr "最初の文節を選択するキーイベント"
-
-#~ msgid "Last segment keys:"
-#~ msgstr "最後の文節キー:"
-
-#~ msgid "Select last segment keys"
-#~ msgstr "最後の文節キーの設定"
-
-#~ msgid "Next segment keys:"
-#~ msgstr "次の文節キー:"
-
-#~ msgid "Select next segment keys"
-#~ msgstr "次の文節キーの設定"
-
-#~ msgid "The key events to select next segment. "
-#~ msgstr "次の文節を選択するキーイベント"
-
-#~ msgid "Previous segment keys:"
-#~ msgstr "前の文節キー:"
-
-#~ msgid "Select previous segment keys"
-#~ msgstr "前の文節キーの設定"
-
-#~ msgid "The key events to select previous segment. "
-#~ msgstr "前の文節を選択するキーイベント"
-
-#~ msgid "Shrink segment keys:"
-#~ msgstr "文節を縮めるキー:"
-
-#~ msgid "Select shrink segment keys"
-#~ msgstr "文節を縮めるキーの設定"
-
-#~ msgid "The key events to shrink the selected segment. "
-#~ msgstr "文節を縮めるキーイベント"
-
-#~ msgid "Expand segment keys:"
-#~ msgstr "文節を広げるキー:"
-
-#~ msgid "Select expand segment keys"
-#~ msgstr "文節を広げるキーの設定"
-
-#~ msgid "The key events to expand the selected segment. "
-#~ msgstr "文節を広げるキーイベント"
-
-#~ msgid "Select commiting the first segment keys"
-#~ msgstr "最初の文節を確定するキーの設定"
-
-#~ msgid "The key events to commit the first segment. "
-#~ msgstr "最初の文節を確定するキーイベント"
-
-#~ msgid "Commit the selected segment keys:"
-#~ msgstr "選択文節を確定するキー:"
-
-#~ msgid "Select commiting the selected segment keys"
-#~ msgstr "選択文節を確定するキーの設定"
-
-#~ msgid "The key events to commit the selected segment. "
-#~ msgstr "選択文節を確定するキーイベント"
-
-#~ msgid "Hiragana keys:"
-#~ msgstr "ひらがな変換キー："
-
-#~ msgid "Select convert to hiragana keys"
-#~ msgstr "ひらがな変換キーの設定"
-
-#~ msgid "The key events to convert the preedit string to hiragana. "
-#~ msgstr "文字列をひらがなへ変換するキーイベント"
-
-#~ msgid "Select convert to katakana keys"
-#~ msgstr "カタカナ変換キーの設定"
-
-#~ msgid "The key events to convert the preedit string to katakana. "
-#~ msgstr "文字列をカタカナへ変換するキーイベント"
-
-#~ msgid "Half width keys:"
-#~ msgstr "半角カタカナ変換キー:"
-
-#~ msgid "Select convert to half width katakana keys"
-#~ msgstr "半角カタカナ変換キーの設定"
-
-#~ msgid ""
-#~ "The key events to convert the preedit string to half width katakana. "
-#~ msgstr "文字列を半角カタカナへ変換するキーイベント"
-
-#~ msgid "Latin keys:"
-#~ msgstr "英数変換キー:"
-
-#~ msgid "Wide latin keys:"
-#~ msgstr "全角英数変換キー:"
-
-#~ msgid "Select convert to wide latin keys"
-#~ msgstr "全角英数変換キーの設定"
-
-#~ msgid "The key events to convert the preedit string to wide latin. "
-#~ msgstr "文字列を全角英数へ変換するキーイベント"
-
-#~ msgid "Edit dictionary keys:"
-#~ msgstr "辞書編集キー:"
-
-#~ msgid "Select edit dictionary keys"
-#~ msgstr "辞書編集キーの設定"
-
-#~ msgid "The key events to launch dictionary administration tool. "
-#~ msgstr "辞書管理ツールを起動するキーイベント"
-
-#~ msgid "Add a word keys:"
-#~ msgstr "単語追加キー:"
-
-#~ msgid "The key events to launch the tool to add a word. "
-#~ msgstr "単語追加ツールを起動するキーイベント"
-
-#~ msgid "Converting keys"
-#~ msgstr "変換キー"
-
-#~ msgid "Dictionary keys"
-#~ msgstr "辞書関連キー"
-
-#~ msgid "Roma typing method"
-#~ msgstr "ローマ字入力方式"
-
-#~ msgid "Kana typing method"
-#~ msgstr "かな入力方式"
-
-#~ msgid "Wide"
-#~ msgstr "全角"
-
-#~ msgid "Half"
-#~ msgstr "半角"
-
-#~ msgid "Typing method: "
-#~ msgstr "入力方式: "
-
-#~ msgid "Style of comma and period: "
-#~ msgstr "句読点のスタイル: "
-
-#~ msgid "Space type: "
-#~ msgstr "空白のタイプ: "
-
-#~ msgid "Start conversion on inputting a comma or a period."
-#~ msgstr "句読点入力時に変換を開始する"
-
-#~ msgid "Close candidate window when select a candidate directly."
-#~ msgstr "候補を直接選択した時に候補ウィンドウを閉じる"
-
-#~ msgid "Show _input mode label"
-#~ msgstr "入力モードラベルを表示"
-
-#~ msgid "Show _typing method label"
-#~ msgstr "入力方式ラベルを表示"
-
-#~ msgid "Show _period style label"
-#~ msgstr "句読点スタイルラベルを表示"
-
-#~ msgid "Show _dictionary menu label"
-#~ msgstr "辞書メニューラベルを表示"
-
-#~ msgid "Show _edit dictionary label"
-#~ msgstr "辞書編集ラベルを表示"
-
-#~ msgid "Show _add word label"
-#~ msgstr "単語追加ラベルを表示"
-
-#~ msgid "Edit dictionary command:"
-#~ msgstr "辞書編集コマンド:"
-
-#~ msgid "Add word command:"
-#~ msgstr "単語追加コマンド:"
