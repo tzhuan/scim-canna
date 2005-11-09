@@ -133,14 +133,19 @@ CannaFactory::get_name () const
 WideString
 CannaFactory::get_authors () const
 {
-    return utf8_mbstowcs (
+    const char *package =
+        PACKAGE "-" PACKAGE_VERSION "\n"
+        "\n";
+    const char *authors =
         _("Authors of scim-canna:\n"
           "  Copyright (C) 2005 Takuro Ashie <ashie@homa.ne.jp>\n"
           "  Copyright (C) 2004 Hiroyuki Ikezoe <poincare@ikezoe.net>\n"
           "  \n"
           "Authors of Canna:\n"
           "  Copyright (C) 1990-1997 NEC Corporation, Tokyo, Japan.\n"
-          "  Copyright (C) 2002-2004 Canna Project.\n"));
+          "  Copyright (C) 2002-2004 Canna Project.\n");
+
+    return utf8_mbstowcs (package) + utf8_mbstowcs (authors);
 }
 
 WideString
