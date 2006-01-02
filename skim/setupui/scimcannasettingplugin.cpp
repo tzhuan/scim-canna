@@ -49,6 +49,7 @@ ScimCannaSettingPlugin::ScimCannaSettingPlugin(QWidget *parent,
 ScimCannaSettingPlugin::~ScimCannaSettingPlugin() 
 {
     KGlobal::locale()->removeCatalogue("skim-scim-canna");
+    delete d;
 }
 
 
