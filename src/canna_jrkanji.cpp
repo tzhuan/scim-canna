@@ -53,6 +53,14 @@ CannaJRKanji::CannaJRKanji (CannaInstance *ci)
 {
     char **warn = NULL, **p;
 
+    if (m_canna->m_factory->m_on_off == "On") {
+        m_enabled = true;
+    } else if (m_canna->m_factory->m_on_off == "Off") {
+        m_enabled = false;
+    } else {
+        m_enabled = false;
+    }
+
     m_iconv.set_encoding ("EUC-JP");
 
     // initialize canna library

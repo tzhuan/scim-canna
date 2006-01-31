@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-17 01:05+0000\n"
+"POT-Creation-Date: 2006-01-31 16:05+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,26 +16,46 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../setupui/cannaui.cpp:84
+#: ../setupui/cannaui.cpp:128
 msgid "Canna"
 msgstr ""
 
-#: ../setupui/cannaui.cpp:85
+#: ../setupui/cannaui.cpp:129
 msgid "Specif&y initialize file :"
 msgstr ""
 
-#: ../setupui/cannaui.cpp:86
+#: ../setupui/cannaui.cpp:130
 msgid "Alt+Y"
 msgstr ""
 
-#: ../setupui/cannaui.cpp:87
+#: ../setupui/cannaui.cpp:131
 msgid "Specify server &name :"
 msgstr ""
 
-#: ../setupui/cannaui.cpp:88
+#: ../setupui/cannaui.cpp:132
 msgid "Alt+N"
 msgstr ""
 
-#: ../setupui/cannaui.cpp:89
-msgid "General"
+#: ../setupui/cannaui.cpp:133
+msgid "Input Mode"
+msgstr ""
+
+#: ../setupui/cannaui.cpp:134
+msgid "Default Mode:"
+msgstr ""
+
+#: ../setupui/cannaui.cpp:135
+msgid "On/Off key:"
+msgstr ""
+
+#: ../setupui/cannaui.cpp:137
+msgid "Japanese On"
+msgstr ""
+
+#: ../setupui/cannaui.cpp:138
+msgid "Japanese Off"
+msgstr ""
+
+#: ../setupui/cannaui.cpp:139
+msgid "&General"
 msgstr ""

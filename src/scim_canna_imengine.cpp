@@ -174,6 +174,8 @@ void
 CannaInstance::focus_out ()
 {
     SCIM_DEBUG_IMENGINE(2) << "focus_out.\n";
+
+    reset ();
 }
 
 void

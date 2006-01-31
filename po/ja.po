@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scim-canna\n"
 "Report-Msgid-Bugs-To: ashie@homa.ne.jp\n"
-"POT-Creation-Date: 2005-11-08 17:22+0900\n"
+"POT-Creation-Date: 2006-01-31 14:40+0900\n"
 "PO-Revision-Date: 2005-03-24 10:57+0900\n"
 "Last-Translator: Takuro Ashie <ashie@homa.ne.jp>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -13,63 +13,63 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/canna_jrkanji.cpp:133 src/canna_jrkanji.cpp:134
+#: src/canna_jrkanji.cpp:141 src/canna_jrkanji.cpp:142
 msgid "Input mode"
 msgstr "入力モード"
 
-#: src/canna_jrkanji.cpp:138 src/canna_jrkanji.cpp:139
+#: src/canna_jrkanji.cpp:146 src/canna_jrkanji.cpp:147
 msgid "Off"
 msgstr "オフ"
 
-#: src/canna_jrkanji.cpp:143 src/canna_jrkanji.cpp:144
+#: src/canna_jrkanji.cpp:151 src/canna_jrkanji.cpp:152
 msgid "Hiragana"
 msgstr "ひらがな"
 
-#: src/canna_jrkanji.cpp:148 src/canna_jrkanji.cpp:149
+#: src/canna_jrkanji.cpp:156 src/canna_jrkanji.cpp:157
 msgid "Katakana"
 msgstr "カタカナ"
 
-#: src/canna_jrkanji.cpp:153 src/canna_jrkanji.cpp:154
+#: src/canna_jrkanji.cpp:161 src/canna_jrkanji.cpp:162
 msgid "Half width katakana"
 msgstr "半角カタカナ"
 
-#: src/canna_jrkanji.cpp:158 src/canna_jrkanji.cpp:159
+#: src/canna_jrkanji.cpp:166 src/canna_jrkanji.cpp:167
 msgid "Alphabet"
 msgstr "英数"
 
-#: src/canna_jrkanji.cpp:163 src/canna_jrkanji.cpp:164
+#: src/canna_jrkanji.cpp:171 src/canna_jrkanji.cpp:172
 msgid "Wide alphabet"
 msgstr "全角英数"
 
-#: src/canna_jrkanji.cpp:168
+#: src/canna_jrkanji.cpp:176
 msgid "Symbols"
 msgstr "記号"
 
-#: src/canna_jrkanji.cpp:169
+#: src/canna_jrkanji.cpp:177
 msgid "Search a symbol"
 msgstr "記号を入力"
 
-#: src/canna_jrkanji.cpp:173
+#: src/canna_jrkanji.cpp:181
 msgid "Hex"
 msgstr "16進"
 
-#: src/canna_jrkanji.cpp:174
+#: src/canna_jrkanji.cpp:182
 msgid "Search a kanji by hex"
 msgstr "漢字を16進コードで検索"
 
-#: src/canna_jrkanji.cpp:178
+#: src/canna_jrkanji.cpp:186
 msgid "Bushu"
 msgstr "部首"
 
-#: src/canna_jrkanji.cpp:179
+#: src/canna_jrkanji.cpp:187
 msgid "Search a kanji by bushu"
 msgstr "漢字を部首で検索"
 
-#: src/canna_jrkanji.cpp:482
+#: src/canna_jrkanji.cpp:490
 msgid "[Off]"
 msgstr "[オフ]"
 
-#: src/scim_canna_imengine_factory.cpp:137
+#: src/scim_canna_imengine_factory.cpp:141
 msgid ""
 "Authors of scim-canna:\n"
 "  Copyright (C) 2005 Takuro Ashie <ashie@homa.ne.jp>\n"
@@ -87,7 +87,7 @@ msgstr ""
 "  Copyright (C) 1990-1997 NEC Corporation, Tokyo, Japan.\n"
 "  Copyright (C) 2002-2004 Canna Project. \n"
 
-#: src/scim_canna_imengine_factory.cpp:156
+#: src/scim_canna_imengine_factory.cpp:162
 msgid ""
 "Basic operation:\n"
 "  \n"
@@ -95,7 +95,7 @@ msgstr ""
 "基本操作:\n"
 "  \n"
 
-#: src/scim_canna_imengine_factory.cpp:160
+#: src/scim_canna_imengine_factory.cpp:166
 msgid ""
 "1. Switch input mode:\n"
 "  You can toggle on/off Japanese mode by pressing Zenkaku_Hankaku key or\n"
@@ -107,7 +107,7 @@ msgstr ""
 "  とができます。\n"
 "  \n"
 
-#: src/scim_canna_imengine_factory.cpp:166
+#: src/scim_canna_imengine_factory.cpp:172
 msgid ""
 "2. Input hiragana and katakana:\n"
 "  You can input hiragana by inputting romaji. The preedit string can be\n"
@@ -122,7 +122,7 @@ msgstr ""
 "  入力をキャンセルしたい場合は、Control+Gを押して下さい。\n"
 "  \n"
 
-#: src/scim_canna_imengine_factory.cpp:173
+#: src/scim_canna_imengine_factory.cpp:179
 msgid ""
 "3. Convert to kanji:\n"
 "  After inputting hiragana, you can convert it to kanji by pressing Space\n"
@@ -142,7 +142,7 @@ msgstr ""
 "  Enterを押すと編集文字列を確定します。\n"
 "  \n"
 
-#: src/scim_canna_imengine_factory.cpp:183
+#: src/scim_canna_imengine_factory.cpp:189
 msgid ""
 "4. Modify sentence segments:\n"
 "  After converting to kanji and before showing candidates or commit, you\n"
@@ -158,7 +158,7 @@ msgstr ""
 "  りすることができます。\n"
 "  \n"
 
-#: src/scim_canna_imengine_factory.cpp:191
+#: src/scim_canna_imengine_factory.cpp:197
 msgid ""
 "5. Additional features:\n"
 "  You can access to additional features of Canna by pressing Home key.\n"
@@ -179,78 +179,81 @@ msgstr "かんな"
 msgid "An Canna IMEngine Module."
 msgstr "かんなIMEngineモジュール"
 
-#: src/scim_canna_imengine_setup.cpp:173
+#: src/scim_canna_imengine_setup.cpp:169
 msgid "Specify Canna initialize file"
 msgstr "かんな初期化ファイルを指定する"
 
-#: src/scim_canna_imengine_setup.cpp:182
+#: src/scim_canna_imengine_setup.cpp:178
 msgid "Specify Canna server name"
 msgstr "かんなサーバを指定する"
 
-#: src/scim_canna_imengine_setup.cpp:198
+#: src/scim_canna_imengine_setup.cpp:194
 msgid "The Canna initialize file name to use."
 msgstr "使用するかんな初期化ファイルを指定します"
 
-#: src/scim_canna_imengine_setup.cpp:207
+#: src/scim_canna_imengine_setup.cpp:203
 msgid "The Canna host name to connect."
 msgstr "接続するかんなサーバが稼働しているホストの名前を指定します"
 
-#: src/scim_canna_imengine_setup.cpp:288
-msgid "Common keys"
-msgstr "一般キー"
+#: src/scim_canna_imengine_setup.cpp:210
+msgid "Default mode:"
+msgstr "デフォルトモード:"
 
-#: src/scim_canna_imengine_setup.cpp:289
-msgid "Mode keys"
-msgstr "モードキー"
+#: src/scim_canna_imengine_setup.cpp:219
+msgid "On/Off key:"
+msgstr "ON/OFFキー"
 
-#: src/scim_canna_imengine_setup.cpp:290
-msgid "Caret keys"
-msgstr "キャレットキー"
+#: src/scim_canna_imengine_setup.cpp:230
+msgid "Japanese On"
+msgstr "日本語ON"
 
-#: src/scim_canna_imengine_setup.cpp:291
-msgid "Segments keys"
-msgstr "文節キー"
+#: src/scim_canna_imengine_setup.cpp:231
+msgid "Japanese Off"
+msgstr "日本語OFF"
 
-#: src/scim_canna_imengine_setup.cpp:292
-msgid "Candidates keys"
-msgstr "候補選択キー"
+#: src/scim_canna_imengine_setup.cpp:497
+msgid "Common"
+msgstr "一般"
 
-#: src/scim_canna_imengine_setup.cpp:293
-msgid "Direct select keys"
-msgstr "直接選択キーの設定"
+#: src/scim_canna_imengine_setup.cpp:503
+msgid "Mode"
+msgstr "モード"
 
-#: src/scim_canna_imengine_setup.cpp:652
-msgid "Search by key"
-msgstr "キーで検索"
+#~ msgid "Caret keys"
+#~ msgstr "キャレットキー"
 
-#: src/scim_canna_imengine_setup.cpp:656
-msgid "all"
-msgstr "全て"
+#~ msgid "Segments keys"
+#~ msgstr "文節キー"
 
-#: src/scim_canna_imengine_setup.cpp:699
-msgid "Feature"
-msgstr "機能"
+#~ msgid "Candidates keys"
+#~ msgstr "候補選択キー"
 
-#: src/scim_canna_imengine_setup.cpp:708
-msgid "Key bindings"
-msgstr "キーバインド"
+#~ msgid "Direct select keys"
+#~ msgstr "直接選択キーの設定"
 
-#: src/scim_canna_imengine_setup.cpp:714
-msgid "Description"
-msgstr "説明"
+#~ msgid "Search by key"
+#~ msgstr "キーで検索"
 
-#: src/scim_canna_imengine_setup.cpp:743
-msgid "Options"
-msgstr "オプション"
+#~ msgid "all"
+#~ msgstr "全て"
 
-#: src/scim_canna_imengine_setup.cpp:750
-msgid "Toolbar"
-msgstr "ツールバー"
+#~ msgid "Feature"
+#~ msgstr "機能"
 
-#: src/scim_canna_imengine_setup.cpp:756
-msgid "Dictionary"
-msgstr "辞書"
+#~ msgid "Key bindings"
+#~ msgstr "キーバインド"
 
-#: src/scim_canna_imengine_setup.cpp:1056
-msgid "Set key filter"
-msgstr "キーフィルターをセット"
+#~ msgid "Description"
+#~ msgstr "説明"
+
+#~ msgid "Options"
+#~ msgstr "オプション"
+
+#~ msgid "Toolbar"
+#~ msgstr "ツールバー"
+
+#~ msgid "Dictionary"
+#~ msgstr "辞書"
+
+#~ msgid "Set key filter"
+#~ msgstr "キーフィルターをセット"

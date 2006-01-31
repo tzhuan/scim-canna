@@ -1,3 +1,16 @@
+2006-01-31 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/canna_jrkanji.cpp, src/scim_canna_imengine.cpp,
+	  src/scim_canna_imengine_factory.{cpp,h},
+	  src/scim_canna_imengine_setup.cpp,
+	  src/scim_canna_prefs.h:
+	Add preference for initial input mode.
+	* po/ja.po: Update.
+
+2006-01-31 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/scim_canna_imengine.cpp: Call reset() on focus out.
+
 2005-11-09 Takuro Ashie <ashie@homa.ne.jp>
 
 	* src/scim_canna_imengine_factory.cpp:

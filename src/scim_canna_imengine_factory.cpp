@@ -102,7 +102,8 @@ CannaFactory::CannaFactory (const String &lang,
       m_specify_init_file_name (SCIM_CANNA_CONFIG_SPECIFY_INIT_FILE_NAME_DEFAULT),
       m_specify_server_name    (SCIM_CANNA_CONFIG_SPECIFY_SERVER_NAME_DEFAULT),
       m_init_file_name         (SCIM_CANNA_CONFIG_INIT_FILE_NAME_DEFAULT),
-      m_server_name            (SCIM_CANNA_CONFIG_SERVER_NAME_DEFAULT)
+      m_server_name            (SCIM_CANNA_CONFIG_SERVER_NAME_DEFAULT),
+      m_on_off                 (SCIM_CANNA_CONFIG_ON_OFF_DEFAULT)
 {
     SCIM_DEBUG_IMENGINE(1) << "Create Canna Factory :\n";
     SCIM_DEBUG_IMENGINE(1) << "  Lang : " << lang << "\n";
@@ -225,14 +226,6 @@ CannaFactory::create_instance (const String &encoding, int id)
     return new CannaInstance (this, encoding, id);
 }
 
-#define APPEND_ACTION(key, func) \
-{ \
-    String name = "func", str; \
-    str = config->read (String (SCIM_CANNA_CONFIG_##key##_KEY), \
-                        String (SCIM_CANNA_CONFIG_##key##_KEY_DEFAULT)); \
-    m_actions.push_back (CannaAction (name, str, &CannaInstance::func)); \
-}
-
 void
 CannaFactory::reload_config (const ConfigPointer &config)
 {
@@ -243,21 +236,26 @@ CannaFactory::reload_config (const ConfigPointer &config)
     m_specify_init_file_name
         = config->read (String (SCIM_CANNA_CONFIG_SPECIFY_INIT_FILE_NAME),
                         SCIM_CANNA_CONFIG_SPECIFY_INIT_FILE_NAME_DEFAULT);
+
     m_specify_server_name
         = config->read (String (SCIM_CANNA_CONFIG_SPECIFY_SERVER_NAME),
                         SCIM_CANNA_CONFIG_SPECIFY_SERVER_NAME_DEFAULT);
+
     m_init_file_name
         = config->read (String (SCIM_CANNA_CONFIG_INIT_FILE_NAME),
                         SCIM_CANNA_CONFIG_INIT_FILE_NAME_DEFAULT);
+
     m_server_name
         = config->read (String (SCIM_CANNA_CONFIG_SERVER_NAME),
                         String (SCIM_CANNA_CONFIG_SERVER_NAME_DEFAULT));
+
+    m_on_off
+        = config->read (String (SCIM_CANNA_CONFIG_ON_OFF),
+                        String (SCIM_CANNA_CONFIG_ON_OFF_DEFAULT));
+
     str = config->read (String (SCIM_CANNA_CONFIG_ON_OFF_KEY),
                         String (SCIM_CANNA_CONFIG_ON_OFF_KEY_DEFAULT));
     scim_string_to_key_list (m_on_off_key, str);
 
     m_actions.clear ();
-
-    // edit keys
-    //APPEND_ACTION (COMMIT, action_commit_with_learn);
 }

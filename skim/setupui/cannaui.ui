@@ -34,7 +34,7 @@
                     <cstring>tab</cstring>
                 </property>
                 <attribute name="title">
-                    <string>General</string>
+                    <string>&amp;General</string>
                 </attribute>
                 <grid>
                     <property name="name">
@@ -78,7 +78,106 @@
                             <bool>false</bool>
                         </property>
                     </widget>
-                    <spacer row="2" column="1">
+                    <widget class="QGroupBox" row="3" column="0" rowspan="1" colspan="2">
+                        <property name="name">
+                            <cstring>groupBox1</cstring>
+                        </property>
+                        <property name="title">
+                            <string>Input Mode</string>
+                        </property>
+                        <grid>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="SkimEditShortcutButton" row="1" column="3">
+                                <property name="name">
+                                    <cstring>OnOffKey_Button</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>true</bool>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>0</hsizetype>
+                                        <vsizetype>1</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                            </widget>
+                            <spacer row="0" column="2" rowspan="1" colspan="2">
+                                <property name="name">
+                                    <cstring>spacer18</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>41</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <widget class="QLabel" row="0" column="0">
+                                <property name="name">
+                                    <cstring>textLabel1</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Default Mode:</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="1" column="0">
+                                <property name="name">
+                                    <cstring>textLabel2</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>On/Off key:</string>
+                                </property>
+                            </widget>
+                            <widget class="QComboBox" row="0" column="1">
+                                <item>
+                                    <property name="text">
+                                        <string>Japanese On</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>Japanese Off</string>
+                                    </property>
+                                </item>
+                                <property name="name">
+                                    <cstring>kcfg__IMEngine_Canna_OnOff</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLineEdit" row="1" column="1" rowspan="1" colspan="2">
+                                <property name="name">
+                                    <cstring>kcfg__IMEngine_Canna_OnOffKey</cstring>
+                                </property>
+                            </widget>
+                        </grid>
+                    </widget>
+                    <spacer row="2" column="0">
+                        <property name="name">
+                            <cstring>spacer19</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Fixed</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>16</width>
+                                <height>16</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <spacer row="4" column="0">
                         <property name="name">
                             <cstring>spacer1</cstring>
                         </property>
@@ -91,7 +190,7 @@
                         <property name="sizeHint">
                             <size>
                                 <width>21</width>
-                                <height>130</height>
+                                <height>60</height>
                             </size>
                         </property>
                     </spacer>
@@ -101,7 +200,31 @@
     </vbox>
 </widget>
 <customwidgets>
+    <customwidget>
+        <class>SkimEditShortcutButton</class>
+        <header location="local">skimkeygrabber.h</header>
+        <sizehint>
+            <width>24</width>
+            <height>24</height>
+        </sizehint>
+        <container>0</container>
+        <sizepolicy>
+            <hordata>1</hordata>
+            <verdata>1</verdata>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
+        <pixmap>image0</pixmap>
+        <signal>setEditorText(const QString &amp;)</signal>
+        <slot access="public" specifier="">slot()</slot>
+        <slot access="public" specifier="">setShortcuts(const QString &amp;)</slot>
+    </customwidget>
 </customwidgets>
+<images>
+    <image name="image0">
+        <data format="PNG" length="909">89504e470d0a1a0a0000000d4948445200000016000000160806000000c4b46c3b0000035449444154388dad9431681c471440df992dbe608b3938c10ea4b8150e48858cb75021392ea4ce875d5c428ac4b88843d28454e92cdb10b02bd7490aa13401b9109c0b811a635d20dc9dc12127e4a00d28dc0a72300312dc401634c58152ac4ed22544b8d0c0143b3bfbe6fdbfff4fa9b7d3831c0861eadad43197307aed5ea9d46ab7d0a166f5f9eaf1d2f412a94bc1c26ebefb4e10e71cd95e46e7d70e0ccfd6031d6aa6ae4d1dbf6abc22520635ab30799744ca0c7283561ae30d3ad48837106a32573c1b6fd0a2e9bccd28af089b3ffb33b0c90d00e95f29aaaae8f657190c32c0134f7ab652c1f685c1a107847205e6673d5d074aa063a1aa013d1e49a0c393951c4cde458619e0882785ad8e22dd7034b71d30b211aad3c2dd7b8a780eaaca6373a856fe051e19efda5d12f1a47f17d0c606acfd600b5428c4d30a09c0f43dfb7f789e2e5b6a9f283efd4c88956733ff1f631d6a0679463c095b1d39817a166f47d4eac24c0c76e85181a6b17ec4da8a65f3b925b95a456e9589423706be323236b9412bc80642f3853b85defd529879df61870e3910d67e1af0f9bd09ee7f1d01c2772b0ef160fd05c6c667e084f47787528a5a5d8894c37a5043c5a3679e74db313880878fcb745e167b9b6f14b1e202e310d27d0f7874f524fc11f48123dd76a88a50bb290c8223661229beddf7985cc6c1e78dc5830e8b0db11439955cf1e88127dd2e0e148189f726882b40308209fa226342f0526c6cf73d2a28d3d8a030554214296cdff164d9b0f54b19b3572456572730175545e632e6673dd5abc2fe9f9ec6fa11f7bf88191c783eba25a02678b20c76dff1f4ab0cef3daa2224c911b8f1bff79f1c3ba0562fe25a5bb1345e643c7c5c269a83f99b03bef93646450ae71c7ee859aa4724d7b9d8d8e4194a606111708aef572c3f3eb3745e0a8b73821d82d933f8430f4101f8ade9e8bcd6c44a38ebcef377453fa51642e7b068d3858f051f56d95c2faa21dd3eb35115a156afd26e3a9cf7a800d2fe782a4e8db3bd8cce5b8834d81c22e5a9d5850fef2434df647058849b4cc7e8998ce43a345f6ba220c2fa94b43b0e2eb5da2d6e2cdc382680e403416b10a1b85b83624a5054ca28fc627824109c83b4eb31d6e3ecb9d7bd9d1ec0f165cfd3aab8ec7145879a5ebb57ba74f0a8e35aedd6a5c17b3bbdd23fb484b3f317eb56fc0000000049454e44ae426082</data>
+    </image>
+</images>
 <connections>
     <connection>
         <sender>kcfg__IMEngine_Canna_SpecifyInitFileName</sender>
@@ -115,6 +238,24 @@
         <receiver>kcfg__IMEngine_Canna_ServerName</receiver>
         <slot>setEnabled(bool)</slot>
     </connection>
+    <connection>
+        <sender>OnOffKey_Button</sender>
+        <signal>setEditorText(const QString&amp;)</signal>
+        <receiver>kcfg__IMEngine_Canna_OnOffKey</receiver>
+        <slot>setText(const QString&amp;)</slot>
+    </connection>
+    <connection>
+        <sender>kcfg__IMEngine_Canna_OnOffKey</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>OnOffKey_Button</receiver>
+        <slot>setShortcuts(const QString&amp;)</slot>
+    </connection>
+    <connection>
+        <sender>OnOffKey_Button</sender>
+        <signal>setEditorText(const QString&amp;)</signal>
+        <receiver>kcfg__IMEngine_Canna_OnOffKey</receiver>
+        <slot>setFocus()</slot>
+    </connection>
 </connections>
 <tabstops>
     <tabstop>tabWidget2</tabstop>
@@ -123,5 +264,6 @@
 <includehints>
     <includehint>klineedit.h</includehint>
     <includehint>klineedit.h</includehint>
+    <includehint>skimeditshortcutbutton.h</includehint>
 </includehints>
 </UI>

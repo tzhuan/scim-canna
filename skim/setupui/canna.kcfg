@@ -22,5 +22,24 @@
       <whatsthis>The Canna host name to connect.</whatsthis>
       <default>localhost</default>
     </entry>
+
+    <entry name="_IMEngine_Canna_OnOff" key="/IMEngine/Canna/OnOff" type="Enum">
+      <label>Default mode</label>
+      <whatsthis>Default input mode.</whatsthis>
+      <default>On</default>
+      <choices>
+        <choice name="On">
+          <label>Japanese On</label>
+        </choice>
+        <choice name="Off">
+          <label>Japanese Off</label>
+        </choice>
+      </choices>
+    </entry>
+    <entry name="_IMEngine_Canna_OnOffKey" key="/IMEngine/Canna/OnOffKey" type="String">
+      <label>On/Off key</label>
+      <whatsthis>The key event to enable/disable Japanese mode.</whatsthis>
+      <default>Zenkaku_Hankaku,Shift+space</default>
+    </entry>
   </group>
 </kcfg>
