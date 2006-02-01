@@ -88,6 +88,7 @@ AC_SUBST(CANNA_CFLAGS)
 # libtool option to control which symbols are exported
 # right now, symbols starting with _ are not exported
 LIBTOOL_EXPORT_OPTIONS='-export-symbols-regex "^[[^_]].*"'
+AC_SUBST(LIBTOOL_EXPORT_OPTIONS)
 
 # Extra args.
 AC_ARG_ENABLE(debug,
