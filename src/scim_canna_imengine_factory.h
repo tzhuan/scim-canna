@@ -34,15 +34,23 @@ using namespace scim;
 
 class CannaFactory : public IMEngineFactoryBase
 {
+private:
     String m_uuid;
 
     friend class CannaInstance;
+    friend class CannaJRKanji;
 
     /* config */
     ConfigPointer  m_config;
     Connection     m_reload_signal_connection;
 
     /* for preference */
+    bool           m_specify_init_file_name;
+    bool           m_specify_server_name;
+    String         m_init_file_name;
+    String         m_server_name;
+    String         m_on_off;
+    KeyEventList   m_on_off_key;
 
     /* for key bindings */
     std::vector<CannaAction> m_actions;

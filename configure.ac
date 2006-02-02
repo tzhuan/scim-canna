@@ -1,5 +1,7 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(scim-canna, 0.0.0, poincare@ikezoe.net)
+AC_PREREQ(2.59)
+
+AC_INIT(scim-canna, 0.2.0, poincare@ikezoe.net)
 AC_CONFIG_SRCDIR([configure.ac])
 
 # Save this value here, since automake will set cflags and cxxflags later
@@ -7,7 +9,7 @@ cflags_set=${CFLAGS+set}
 cppflags_set=${CPPFLAGS+set}
 
 SCIM_CANNA_MAJOR_VERSION=0
-SCIM_CANNA_MINOR_VERSION=0
+SCIM_CANNA_MINOR_VERSION=2
 SCIM_CANNA_MICRO_VERSION=0
 
 SCIM_CANNA_VERSION=$SCIM_CANNA_MAJOR_VERSION.$SCIM_CANNA_MINOR_VERSION.$SCIM_CANNA_MICRO_VERSION
@@ -18,7 +20,7 @@ AC_SUBST(SCIM_CANNA_MICRO_VERSION)
 AC_SUBST(SCIM_CANNA_VERSION)
 
 # Init automake stuff
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE(1.9)
 AM_CONFIG_HEADER(config.h)
 
 # Init gettext
@@ -86,6 +88,7 @@ AC_SUBST(CANNA_CFLAGS)
 # libtool option to control which symbols are exported
 # right now, symbols starting with _ are not exported
 LIBTOOL_EXPORT_OPTIONS='-export-symbols-regex "^[[^_]].*"'
+AC_SUBST(LIBTOOL_EXPORT_OPTIONS)
 
 # Extra args.
 AC_ARG_ENABLE(debug,

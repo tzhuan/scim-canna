@@ -1,0 +1,15 @@
+[Desktop Entry]
+Encoding=UTF-8
+Icon=scim-canna
+Type=Service
+ServiceTypes=Skim/KCModule
+
+X-KDE-ModuleType=Library
+X-KDE-Library=skimplugin_scim_canna
+X-KDE-ParentApp=skimplugin_scim
+X-KDE-ParentComponents=skimplugin_scim
+X-KDE-PluginInfo-DisplayParent=skimsetupdir_imengines
+Name=Canna
+Name[ja]=かんな
+Comment=Configure plugin for Canna IMEngine
+Comment[ja]=かんなIMEngine用設定プラグイン
