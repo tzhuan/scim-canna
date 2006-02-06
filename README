@@ -49,7 +49,8 @@ environment variable from ~/.xinitrc or a same kind file:
 
   export XMODIFIRES="@im=SCIM"
   export GTK_IM_MODULE=scim
-  #export QT_IM_MODULE=scim # specify if you have scim-qtimmm
+  # specify QT_IM_MODULE if you have scim-qtimmm
+  # export QT_IM_MODULE=scim
   scim &
 
 After rebooting X Window system you'll find a keyboard icon in the system tray
