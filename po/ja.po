@@ -201,7 +201,7 @@ msgstr "デフォルトモード:"
 
 #: src/scim_canna_imengine_setup.cpp:219
 msgid "On/Off key:"
-msgstr "ON/OFFキー"
+msgstr "ON/OFFキー:"
 
 #: src/scim_canna_imengine_setup.cpp:230
 msgid "Japanese On"
