@@ -1,1 +1,72 @@
+1. What's this?
+===============
+
 scim-canna is a SCIM IMEngine module for Canna.
+
+SCIM is Smart Common Input Method platform, it provides user friendly/full
+featured user interface and development platform to make input method
+developer's life easier.
+
+Canna is a traditional Japanese conversion engine on UNIX like system.
+It converts key events to Kana Kanji mixed text.
+
+scim-canna provides some usefull user interfaces for Canna using SCIM.
+
+
+2. Requirements
+===============
+
+ * scim-1.0.0 or later.
+   - http://www.scim-im.org/
+
+ * Canna.
+   - http://www.nec.co.jp/canna/
+   - http://canna.sourceforge.jp/
+   - Most distributors provides binary package. I strongly recommend to use it
+     instead of to install it from source tarball.
+
+
+3. Install
+==========
+
+You can build & install scim, scim-canna by following command:
+
+  $ ./configure
+  $ make
+  # make install
+
+If you installed the SCIM into /usr/local or any other non-standard
+directories, you should specify the PKG_CONFIG_PATH environment variable:
+
+  $ PKG_CONFIG_PATH=/usr/local/lib/pkgconfig ./configure
+
+
+4. Usage
+========
+
+At first please make sure to run the Canna server. 
+
+
+5. License
+==========
+
+This program is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation; either version 2, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+Place - Suite 330, Boston, MA 02111-1307, USA.
+
+
+6. Credit
+=========
+
+Special thanks to all scim-canna developers and users!
+
+ * Takuro Ashie <ashie at homa.ne.jp>
+   - Developer.
