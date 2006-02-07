@@ -10,7 +10,7 @@ developer's life easier.
 Canna is a traditional Japanese conversion engine on UNIX like system.
 It converts key events to Kana Kanji mixed text.
 
-scim-canna provides some usefull user interfaces for Canna using SCIM.
+scim-canna combines Canna to SCIM and provides some usefull user interfaces.
 
 
 2. Requirements
