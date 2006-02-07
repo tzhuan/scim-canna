@@ -148,14 +148,6 @@ struct ComboConfigCandidate
     const char *data;
 };
 
-enum {
-    COLUMN_LABEL = 0,
-    COLUMN_VALUE = 1,
-    COLUMN_DESC  = 2,
-    COLUMN_DATA  = 3,
-    N_COLUMNS    = 4,
-};
-
 // Internal data declaration.
 static bool __have_changed    = true;
 
@@ -301,6 +293,46 @@ create_check_button (const char *config_key)
 }
 
 GtkWidget *
+create_entry (const char *config_key, GtkTable *table, int idx)
+{
+    StringConfigData *entry = find_string_config_entry (config_key);
+    if (!entry)
+        return NULL;
+
+    (entry)->widget = gtk_entry_new ();
+    GtkWidget *label = NULL;
+    if (_(entry->label) && *_(entry->label)) {
+        label = gtk_label_new (NULL);
+        gtk_label_set_text_with_mnemonic (GTK_LABEL (label), _(entry->label));
+        gtk_widget_show (label);
+        gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+        gtk_misc_set_padding (GTK_MISC (label), 4, 0);
+        gtk_table_attach (GTK_TABLE (table), label, 0, 1, idx, idx + 1,
+                          (GtkAttachOptions) (GTK_FILL),
+                          (GtkAttachOptions) (GTK_FILL), 4, 4);
+        gtk_label_set_mnemonic_widget (GTK_LABEL (label),
+                                       GTK_WIDGET (entry->widget));
+    }
+
+    g_signal_connect ((gpointer) (entry)->widget, "changed",
+                      G_CALLBACK (on_default_editable_changed),
+                      entry);
+    gtk_widget_show (GTK_WIDGET (entry->widget));
+    gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (entry->widget),
+                      1, 2, idx, idx + 1,
+                      (GtkAttachOptions) (GTK_FILL|GTK_EXPAND),
+                      (GtkAttachOptions) (GTK_FILL), 4, 4);
+
+    if (!__widget_tooltips)
+        __widget_tooltips = gtk_tooltips_new();
+    if (entry->tooltip)
+        gtk_tooltips_set_tip (__widget_tooltips, GTK_WIDGET (entry->widget),
+                              _(entry->tooltip), NULL);
+
+    return GTK_WIDGET (entry->widget);
+}
+
+GtkWidget *
 create_combo (const char *config_key, gpointer candidates_p,
               GtkTable *table, gint idx)
 {
@@ -337,46 +369,6 @@ create_combo (const char *config_key, gpointer candidates_p,
     g_signal_connect ((gpointer) GTK_COMBO (entry->widget)->entry, "changed",
                       G_CALLBACK (on_default_combo_changed),
                       entry);
-
-    if (!__widget_tooltips)
-        __widget_tooltips = gtk_tooltips_new();
-    if (entry->tooltip)
-        gtk_tooltips_set_tip (__widget_tooltips, GTK_WIDGET (entry->widget),
-                              _(entry->tooltip), NULL);
-
-    return GTK_WIDGET (entry->widget);
-}
-
-GtkWidget *
-create_entry (const char *config_key, GtkTable *table, int idx)
-{
-    StringConfigData *entry = find_string_config_entry (config_key);
-    if (!entry)
-        return NULL;
-
-    (entry)->widget = gtk_entry_new ();
-    GtkWidget *label = NULL;
-    if (_(entry->label) && *_(entry->label)) {
-        label = gtk_label_new (NULL);
-        gtk_label_set_text_with_mnemonic (GTK_LABEL (label), _(entry->label));
-        gtk_widget_show (label);
-        gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-        gtk_misc_set_padding (GTK_MISC (label), 4, 0);
-        gtk_table_attach (GTK_TABLE (table), label, 0, 1, idx, idx + 1,
-                          (GtkAttachOptions) (GTK_FILL),
-                          (GtkAttachOptions) (GTK_FILL), 4, 4);
-        gtk_label_set_mnemonic_widget (GTK_LABEL (label),
-                                       GTK_WIDGET (entry->widget));
-    }
-
-    g_signal_connect ((gpointer) (entry)->widget, "changed",
-                      G_CALLBACK (on_default_editable_changed),
-                      entry);
-    gtk_widget_show (GTK_WIDGET (entry->widget));
-    gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (entry->widget),
-                      1, 2, idx, idx + 1,
-                      (GtkAttachOptions) (GTK_FILL|GTK_EXPAND),
-                      (GtkAttachOptions) (GTK_FILL), 4, 4);
 
     if (!__widget_tooltips)
         __widget_tooltips = gtk_tooltips_new();
@@ -469,10 +461,11 @@ create_mode_page ()
     gtk_box_pack_start (GTK_BOX (vbox), table, FALSE, FALSE, 0);
     gtk_widget_show (table);
 
-    //
-    create_combo (SCIM_CANNA_CONFIG_ON_OFF, on_off_modes, GTK_TABLE (table), 0);
+    // Default mode
+    create_combo (SCIM_CANNA_CONFIG_ON_OFF, on_off_modes,
+                  GTK_TABLE (table), 0);
 
-    //
+    //ON/OFF key
     create_entry (SCIM_CANNA_CONFIG_ON_OFF_KEY, GTK_TABLE (table), 1);
     create_key_select_button (SCIM_CANNA_CONFIG_ON_OFF_KEY,
                               GTK_TABLE (table), 1);
