@@ -29,7 +29,7 @@ scim-canna provides some usefull user interfaces for Canna using SCIM.
 3. Install
 ==========
 
-You can build & install scim, scim-canna by following command:
+You can build & install scim and scim-canna by following command:
 
   $ ./configure
   $ make
