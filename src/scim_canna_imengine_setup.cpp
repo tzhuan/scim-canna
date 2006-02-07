@@ -474,6 +474,39 @@ create_mode_page ()
 }
 
 static GtkWidget *
+create_about_page ()
+{
+    GtkWidget *vbox, *label;
+    gchar str[256];
+
+    vbox = gtk_vbox_new (FALSE, 0);
+    gtk_widget_show (vbox);
+
+    g_snprintf (
+        str, 256,
+        _("<span size=\"20000\">"
+          "scim-canna-%s"
+          "</span>\n\n"
+
+          "<span size=\"16000\" style=\"italic\">"
+          "A Japanese input method module\nfor SCIM using Canna"
+          "</span>\n\n\n\n"
+
+          "<span size=\"12000\">"
+          "Copyright 2005-2006, Takuro Ashie &lt;ashie@homa.ne.jp&gt;"
+          "</span>"),
+        PACKAGE_VERSION);
+
+    label = gtk_label_new (NULL);
+    gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_CENTER);
+    gtk_label_set_markup (GTK_LABEL (label), str);
+    gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, TRUE, 0);
+    gtk_widget_show (label);
+
+    return vbox;
+}
+
+static GtkWidget *
 create_setup_window ()
 {
     static GtkWidget *window = NULL;
@@ -494,6 +527,12 @@ create_setup_window ()
     // Create the second page.
     page = create_mode_page ();
     label = gtk_label_new (_("Mode"));
+    gtk_widget_show (label);
+    gtk_notebook_append_page (GTK_NOTEBOOK (notebook), page, label);
+
+    // Create the third page.
+    page = create_about_page ();
+    label = gtk_label_new (_("About"));
     gtk_widget_show (label);
     gtk_notebook_append_page (GTK_NOTEBOOK (notebook), page, label);
 

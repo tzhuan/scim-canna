@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scim-canna\n"
 "Report-Msgid-Bugs-To: ashie@homa.ne.jp\n"
-"POT-Creation-Date: 2006-02-07 12:47+0900\n"
+"POT-Creation-Date: 2006-02-07 13:31+0900\n"
 "PO-Revision-Date: 2005-03-24 10:57+0900\n"
 "Last-Translator: Takuro Ashie <ashie@homa.ne.jp>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -176,7 +176,6 @@ msgid "Canna"
 msgstr "かんな"
 
 #: src/scim_canna_imengine_setup.cpp:90
-#, fuzzy
 msgid "A Canna IMEngine Module."
 msgstr "かんなIMEngineモジュール"
 
@@ -212,13 +211,40 @@ msgstr "日本語ON"
 msgid "Japanese Off"
 msgstr "日本語OFF"
 
-#: src/scim_canna_imengine_setup.cpp:490
+#: src/scim_canna_imengine_setup.cpp:487
+#, c-format
+msgid ""
+"<span size=\"20000\">scim-canna-%s</span>\n"
+"\n"
+"<span size=\"16000\" style=\"italic\">A Japanese input method module\n"
+"for SCIM using Canna</span>\n"
+"\n"
+"\n"
+"\n"
+"<span size=\"12000\">Copyright 2005-2006, Takuro Ashie &lt;ashie@homa.ne."
+"jp&gt;</span>"
+msgstr ""
+"<span size=\"20000\">scim-canna-%s</span>\n"
+"\n"
+"<span size=\"16000\" style=\"italic\">Cannaを利用した\n"
+"SCIM用日本語入力モジュール</span>\n"
+"\n"
+"\n"
+"\n"
+"<span size=\"12000\">Copyright 2005-2006, Takuro Ashie &lt;ashie@homa.ne."
+"jp&gt;</span>"
+
+#: src/scim_canna_imengine_setup.cpp:523
 msgid "Common"
 msgstr "一般"
 
-#: src/scim_canna_imengine_setup.cpp:496
+#: src/scim_canna_imengine_setup.cpp:529
 msgid "Mode"
 msgstr "モード"
+
+#: src/scim_canna_imengine_setup.cpp:535
+msgid "About"
+msgstr "情報"
 
 #~ msgid "Caret keys"
 #~ msgstr "キャレットキー"
