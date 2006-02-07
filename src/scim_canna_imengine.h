@@ -77,9 +77,6 @@ private: // actions
 
 private:
     void   select_candidate_no_direct          (unsigned int    item);
-
-    /* processing key event */
-    bool   process_key_event_lookup_keybind    (const KeyEvent &key);
 };
 #endif /* __SCIM_CANNA_IMENGINE_H__ */
 /*

@@ -9,7 +9,6 @@ INCLUDE	= \
 noinst_HEADERS = \
 	canna_jrkanji.h \
 	intl.h \
-	scim_canna_action.h \
 	scim_canna_imengine_factory.h \
 	scim_canna_imengine.h \
 	scim_canna_prefs.h
@@ -19,7 +18,6 @@ module_LTLIBRARIES = canna.la
 
 canna_la_SOURCES = \
 	canna_jrkanji.cpp \
-	scim_canna_action.cpp \
 	scim_canna_imengine_factory.cpp \
 	scim_canna_imengine.cpp
 

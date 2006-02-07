@@ -256,6 +256,4 @@ CannaFactory::reload_config (const ConfigPointer &config)
     str = config->read (String (SCIM_CANNA_CONFIG_ON_OFF_KEY),
                         String (SCIM_CANNA_CONFIG_ON_OFF_KEY_DEFAULT));
     scim_string_to_key_list (m_on_off_key, str);
-
-    m_actions.clear ();
 }

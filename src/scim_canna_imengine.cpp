@@ -81,18 +81,6 @@ CannaInstance::process_key_event (const KeyEvent& key)
     return false;
 }
 
-bool
-CannaInstance::process_key_event_lookup_keybind (const KeyEvent& key)
-{
-    std::vector<CannaAction>::iterator it = m_factory->m_actions.begin();
-    for (; it != m_factory->m_actions.end(); it++) {
-        if ((*it).perform (this, key))
-            return true;
-    }
-
-    return false;
-}
-
 void
 CannaInstance::move_preedit_caret (unsigned int pos)
 {

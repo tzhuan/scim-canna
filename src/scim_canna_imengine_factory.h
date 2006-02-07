@@ -28,7 +28,6 @@
 
 #define Uses_SCIM_ICONV
 #include <scim.h>
-#include "scim_canna_action.h"
 
 using namespace scim;
 
@@ -51,9 +50,6 @@ private:
     String         m_server_name;
     String         m_on_off;
     KeyEventList   m_on_off_key;
-
-    /* for key bindings */
-    std::vector<CannaAction> m_actions;
 
 public:
     CannaFactory (const String &lang,
