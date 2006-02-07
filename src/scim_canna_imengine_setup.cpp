@@ -87,7 +87,7 @@ extern "C" {
 
     String scim_setup_module_get_description (void)
     {
-        return String (_("An Canna IMEngine Module."));
+        return String (_("A Canna IMEngine Module."));
     }
 
     void scim_setup_module_load_config (const ConfigPointer &config)
