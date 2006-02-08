@@ -53,7 +53,7 @@ environment variable from ~/.xinitrc or a same kind file:
   # export QT_IM_MODULE=scim
   scim &
 
-After rebooting X Window system you'll find a keyboard icon in the system tray
+After rebooting X Window System you'll find a keyboard icon in the system tray
 and SCIM toolbar. You can switch input method to the scim-canna from these
 items.
 
