@@ -485,7 +485,7 @@ create_about_page ()
     g_snprintf (
         str, 256,
         _("<span size=\"20000\">"
-          "scim-canna-%s"
+          "%s-%s"
           "</span>\n\n"
 
           "<span size=\"16000\" style=\"italic\">"
@@ -495,7 +495,7 @@ create_about_page ()
           "<span size=\"12000\">"
           "Copyright 2005-2006, Takuro Ashie &lt;ashie@homa.ne.jp&gt;"
           "</span>"),
-        PACKAGE_VERSION);
+        PACKAGE, PACKAGE_VERSION);
 
     label = gtk_label_new (NULL);
     gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_CENTER);
