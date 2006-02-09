@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
+<kcfg>
+  <kcfgfile name="skimrc"/>
+  <group name="SCIM">
+    <entry name="_IMEngine_Canna_SpecifyInitFileName" key="/IMEngine/Canna/SpecifyInitFileName" type="Bool">
+      <label>Whether specify init file by manually or not.</label>
+      <default>false</default>
+    </entry>
+    <entry name="_IMEngine_Canna_InitFileName" key="/IMEngine/Canna/InitFileName" type="Path">
+      <label>Initialize file</label>
+      <whatsthis>The Canna initialize file name to use.</whatsthis>
+      <default>$HOME/.canna</default>
+    </entry>
+
+    <entry name="_IMEngine_Canna_SpecifyServerName" key="/IMEngine/Canna/SpecifyServerName" type="Bool">
+      <label>Whether specify canna server by manually or not.</label>
+      <default>false</default>
+    </entry>
+    <entry name="_IMEngine_Canna_ServerName" key="/IMEngine/Canna/ServerName" type="String">
+      <label>Hostname</label>
+      <whatsthis>The Canna host name to connect.</whatsthis>
+      <default>localhost</default>
+    </entry>
+
+    <entry name="_IMEngine_Canna_OnOff" key="/IMEngine/Canna/OnOff" type="Enum">
+      <label>Default mode</label>
+      <whatsthis>Default input mode.</whatsthis>
+      <default>On</default>
+      <choices>
+        <choice name="On">
+          <label>Japanese On</label>
+        </choice>
+        <choice name="Off">
+          <label>Japanese Off</label>
+        </choice>
+      </choices>
+    </entry>
+    <entry name="_IMEngine_Canna_OnOffKey" key="/IMEngine/Canna/OnOffKey" type="String">
+      <label>On/Off key</label>
+      <whatsthis>The key event to enable/disable Japanese mode.</whatsthis>
+      <default>Zenkaku_Hankaku,Shift+space</default>
+    </entry>
+  </group>
+</kcfg>

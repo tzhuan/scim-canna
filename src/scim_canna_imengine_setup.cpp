@@ -24,8 +24,10 @@
  */
 
 #define Uses_SCIM_CONFIG_BASE
+#define Uses_SCIM_EVENT
 
 #include <gtk/gtk.h>
+#include <gdk/gdkkeysyms.h>
 
 #ifdef HAVE_CONFIG_H
   #include <config.h>
@@ -85,7 +87,7 @@ extern "C" {
 
     String scim_setup_module_get_description (void)
     {
-        return String (_("An Canna IMEngine Module."));
+        return String (_("A Canna IMEngine Module."));
     }
 
     void scim_setup_module_load_config (const ConfigPointer &config)
@@ -106,24 +108,41 @@ extern "C" {
 
 
 // Internal data structure
-struct KeyboardConfigData
+struct BoolConfigData
 {
     const char *key;
-    String      data;
+    bool        value;
     const char *label;
     const char *title;
     const char *tooltip;
-    GtkWidget  *entry;
-    GtkWidget  *button;
+    GtkWidget  *widget;
+    bool        changed;
+};
+
+struct StringConfigData
+{
+    const char *key;
+    String      value;
+    const char *label;
+    const char *title;
+    const char *tooltip;
+    GtkWidget  *widget;
+    bool        changed;
 };
 
 struct KeyboardConfigPage
 {
-    const char         *label;
-    KeyboardConfigData *data;
+    const char       *label;
+    StringConfigData *data;
 };
 
 struct ComboConfigData
+{
+    const char *label;
+    const char *data;
+};
+
+struct ComboConfigCandidate
 {
     const char *label;
     const char *data;
@@ -134,256 +153,357 @@ static bool __have_changed    = true;
 
 static GtkTooltips * __widget_tooltips = 0;
 
-static KeyboardConfigData __config_keyboards_common [] =
+static BoolConfigData __config_bool_common [] =
 {
     {
-        NULL,
-        "",
-        NULL,
-        NULL,
-        NULL,
+        SCIM_CANNA_CONFIG_SPECIFY_INIT_FILE_NAME,
+        SCIM_CANNA_CONFIG_SPECIFY_INIT_FILE_NAME_DEFAULT,
+        N_("Specify Canna initialize file"),
         NULL,
         NULL,
+        NULL,
+        false,
+    },
+    {
+        SCIM_CANNA_CONFIG_SPECIFY_SERVER_NAME,
+        SCIM_CANNA_CONFIG_SPECIFY_SERVER_NAME_DEFAULT,
+        N_("Specify Canna server name"),
+        NULL,
+        NULL,
+        NULL,
+        false,
     },
 };
+static unsigned int __config_bool_common_num = sizeof (__config_bool_common) / sizeof (BoolConfigData);
 
-static KeyboardConfigData __config_keyboards_mode [] =
+static StringConfigData __config_string_common [] =
 {
     {
-        NULL,
-        "",
-        NULL,
-        NULL,
+        SCIM_CANNA_CONFIG_INIT_FILE_NAME,
+        SCIM_CANNA_CONFIG_INIT_FILE_NAME_DEFAULT,
         NULL,
         NULL,
+        N_("The Canna initialize file name to use."),
         NULL,
+        false,
     },
-};
-
-static KeyboardConfigData __config_keyboards_caret [] =
-{
     {
-        NULL,
-        "",
-        NULL,
-        NULL,
+        SCIM_CANNA_CONFIG_SERVER_NAME,
+        SCIM_CANNA_CONFIG_SERVER_NAME_DEFAULT,
         NULL,
         NULL,
+        N_("The Canna host name to connect."),
         NULL,
+        false,
     },
-};
-
-static KeyboardConfigData __config_keyboards_candidates [] =
-{
     {
-        NULL,
-        "",
-        NULL,
-        NULL,
-        NULL,
+        SCIM_CANNA_CONFIG_ON_OFF,
+        SCIM_CANNA_CONFIG_ON_OFF_DEFAULT,
+        N_("Default mode:"),
         NULL,
         NULL,
+        NULL,
+        false,
     },
-};
-
-static KeyboardConfigData __config_keyboards_direct_select_candidate [] =
-{
     {
-        NULL,
-        "",
-        NULL,
-        NULL,
-        NULL,
+        SCIM_CANNA_CONFIG_ON_OFF_KEY,
+        SCIM_CANNA_CONFIG_ON_OFF_KEY_DEFAULT,
+        N_("On/Off key:"),
         NULL,
         NULL,
+        NULL,
+        false,
     },
 };
+static unsigned int __config_string_common_num = sizeof (__config_string_common) / sizeof (StringConfigData);
 
-static struct KeyboardConfigPage __key_conf_pages[] =
+static ComboConfigCandidate on_off_modes[] =
 {
-    {N_("Common keys"),     __config_keyboards_common},
-    {N_("Mode keys"),       __config_keyboards_mode},
-    {N_("Caret keys"),      __config_keyboards_caret},
-    //{N_("Segments keys"),   __config_keyboards_segments},
-    {N_("Candidates keys"), __config_keyboards_candidates},
-    {N_("Candidates keys (Direct select)"), __config_keyboards_direct_select_candidate},
+    {N_("Japanese On"),  "On"},
+    {N_("Japanese Off"), "Off"},
+    {NULL, NULL},
 };
-static unsigned int __key_conf_pages_num = sizeof (__key_conf_pages) / sizeof (KeyboardConfigPage);
 
 
 static void on_default_editable_changed       (GtkEditable     *editable,
                                                gpointer         user_data);
 static void on_default_toggle_button_toggled  (GtkToggleButton *togglebutton,
                                                gpointer         user_data);
-static void on_default_key_selection_clicked  (GtkButton       *button,
+static void on_toggle_button_toggled_set_sensitive
+                                              (GtkToggleButton *togglebutton,
                                                gpointer         user_data);
-#if 0
 static void on_default_combo_changed          (GtkEditable     *editable,
                                                gpointer         user_data);
-#endif
+static void on_default_key_selection_clicked  (GtkButton       *button,
+                                               gpointer         user_data);
 static void setup_widget_value ();
 
 
-#if 0
-static GtkWidget *
-create_combo_widget (const char *label_text, GtkWidget **widget,
-                     gpointer data_p, gpointer candidates_p)
+static BoolConfigData *
+find_bool_config_entry (const char *config_key)
 {
-    GtkWidget *hbox, *label;
+    if (!config_key)
+        return NULL;
 
-    hbox = gtk_hbox_new (FALSE, 0);
-    gtk_widget_show (hbox);
-    gtk_container_set_border_width (GTK_CONTAINER (hbox), 4);
+    for (unsigned int i = 0; i < __config_bool_common_num; i++) {
+        BoolConfigData *entry = &__config_bool_common[i];
+        if (entry->key && !strcmp (entry->key, config_key))
+            return entry;
+    }
 
-    label = gtk_label_new (label_text);
+    return NULL;
+}
+
+static StringConfigData *
+find_string_config_entry (const char *config_key)
+{
+    if (!config_key)
+        return NULL;
+
+    for (unsigned int i = 0; i < __config_string_common_num; i++) {
+        StringConfigData *entry = &__config_string_common[i];
+        if (entry->key && !strcmp (entry->key, config_key))
+            return entry;
+    }
+
+    return NULL;
+}
+
+static GtkWidget *
+create_check_button (const char *config_key)
+{
+    BoolConfigData *entry = find_bool_config_entry (config_key);
+    if (!entry)
+        return NULL;
+
+    entry->widget = gtk_check_button_new_with_mnemonic (_(entry->label));
+    gtk_container_set_border_width (GTK_CONTAINER (entry->widget), 4);
+    g_signal_connect (G_OBJECT (entry->widget), "toggled",
+                      G_CALLBACK (on_default_toggle_button_toggled),
+                      entry);
+    gtk_widget_show (entry->widget);
+
+    if (!__widget_tooltips)
+        __widget_tooltips = gtk_tooltips_new();
+    if (entry->tooltip)
+        gtk_tooltips_set_tip (__widget_tooltips, entry->widget,
+                              _(entry->tooltip), NULL);
+
+    return entry->widget;
+}
+
+GtkWidget *
+create_entry (const char *config_key, GtkTable *table, int idx)
+{
+    StringConfigData *entry = find_string_config_entry (config_key);
+    if (!entry)
+        return NULL;
+
+    (entry)->widget = gtk_entry_new ();
+    GtkWidget *label = NULL;
+    if (_(entry->label) && *_(entry->label)) {
+        label = gtk_label_new (NULL);
+        gtk_label_set_text_with_mnemonic (GTK_LABEL (label), _(entry->label));
+        gtk_widget_show (label);
+        gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+        gtk_misc_set_padding (GTK_MISC (label), 4, 0);
+        gtk_table_attach (GTK_TABLE (table), label, 0, 1, idx, idx + 1,
+                          (GtkAttachOptions) (GTK_FILL),
+                          (GtkAttachOptions) (GTK_FILL), 4, 4);
+        gtk_label_set_mnemonic_widget (GTK_LABEL (label),
+                                       GTK_WIDGET (entry->widget));
+    }
+
+    g_signal_connect ((gpointer) (entry)->widget, "changed",
+                      G_CALLBACK (on_default_editable_changed),
+                      entry);
+    gtk_widget_show (GTK_WIDGET (entry->widget));
+    gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (entry->widget),
+                      1, 2, idx, idx + 1,
+                      (GtkAttachOptions) (GTK_FILL|GTK_EXPAND),
+                      (GtkAttachOptions) (GTK_FILL), 4, 4);
+
+    if (!__widget_tooltips)
+        __widget_tooltips = gtk_tooltips_new();
+    if (entry->tooltip)
+        gtk_tooltips_set_tip (__widget_tooltips, GTK_WIDGET (entry->widget),
+                              _(entry->tooltip), NULL);
+
+    return GTK_WIDGET (entry->widget);
+}
+
+GtkWidget *
+create_combo (const char *config_key, gpointer candidates_p,
+              GtkTable *table, gint idx)
+{
+    StringConfigData *entry = find_string_config_entry (config_key);
+    if (!entry)
+        return NULL;
+
+    GtkWidget *label;
+
+    label = gtk_label_new_with_mnemonic (_(entry->label));
+    gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+    gtk_misc_set_padding (GTK_MISC (label), 4, 0);
+    gtk_table_attach (GTK_TABLE (table), label, 0, 1, idx, idx + 1,
+                      (GtkAttachOptions) (GTK_FILL),
+                      (GtkAttachOptions) (GTK_FILL), 4, 4);
     gtk_widget_show (label);
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 4);
 
-    *widget = gtk_combo_new ();
-    gtk_combo_set_value_in_list (GTK_COMBO (*widget), TRUE, FALSE);
-    gtk_combo_set_case_sensitive (GTK_COMBO (*widget), TRUE);
-    gtk_entry_set_editable (GTK_ENTRY (GTK_COMBO (*widget)->entry), FALSE);
-    gtk_widget_show (*widget);
-    gtk_box_pack_start (GTK_BOX (hbox), *widget, FALSE, FALSE, 4);
-    g_object_set_data (G_OBJECT (GTK_COMBO (*widget)->entry), DATA_POINTER_KEY,
+    entry->widget = gtk_combo_new ();
+    gtk_label_set_mnemonic_widget (GTK_LABEL (label),
+                                   GTK_COMBO (entry->widget)->entry);
+    gtk_combo_set_value_in_list (GTK_COMBO (entry->widget), TRUE, FALSE);
+    gtk_combo_set_case_sensitive (GTK_COMBO (entry->widget), TRUE);
+    gtk_entry_set_editable (GTK_ENTRY (GTK_COMBO (entry->widget)->entry),
+                            FALSE);
+    gtk_widget_show (GTK_WIDGET (entry->widget));
+    gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (entry->widget),
+                      1, 2, idx, idx + 1,
+                      (GtkAttachOptions) (GTK_FILL|GTK_EXPAND),
+                      (GtkAttachOptions) (GTK_FILL), 4, 4);
+    g_object_set_data (G_OBJECT (GTK_COMBO (entry->widget)->entry),
+                       DATA_POINTER_KEY,
                        (gpointer) candidates_p);
 
-    g_signal_connect ((gpointer) GTK_COMBO (*widget)->entry, "changed",
+    g_signal_connect ((gpointer) GTK_COMBO (entry->widget)->entry, "changed",
                       G_CALLBACK (on_default_combo_changed),
-                      data_p);
+                      entry);
 
-    return hbox;
+    if (!__widget_tooltips)
+        __widget_tooltips = gtk_tooltips_new();
+    if (entry->tooltip)
+        gtk_tooltips_set_tip (__widget_tooltips, GTK_WIDGET (entry->widget),
+                              _(entry->tooltip), NULL);
+
+    return GTK_WIDGET (entry->widget);
 }
-#endif
 
-#define APPEND_ENTRY(text, tooltip, widget, i)   \
-{ \
-    label = gtk_label_new (NULL); \
-    gtk_label_set_text_with_mnemonic (GTK_LABEL (label), text); \
-    gtk_widget_show (label); \
-    gtk_misc_set_alignment (GTK_MISC (label), 1.0, 0.5); \
-    gtk_misc_set_padding (GTK_MISC (label), 4, 0); \
-    gtk_table_attach (GTK_TABLE (table), label, 0, 1, i, i+1, \
-                      (GtkAttachOptions) (GTK_FILL), \
-                      (GtkAttachOptions) (GTK_FILL), 4, 4); \
-    widget = gtk_entry_new (); \
-    gtk_widget_show (widget); \
-    gtk_table_attach (GTK_TABLE (table), widget, 1, 2, i, i+1, \
-                      (GtkAttachOptions) (GTK_FILL|GTK_EXPAND), \
-                      (GtkAttachOptions) (GTK_FILL), 4, 4); \
-    if (tooltip && *tooltip) \
-        gtk_tooltips_set_tip (__widget_tooltips, widget, \
-                              tooltip, NULL); \
+GtkWidget *
+create_key_select_button (const char *config_key, GtkTable *table, int idx)
+{
+    StringConfigData *entry = find_string_config_entry (config_key);
+    if (!entry)
+        return NULL;
+
+    GtkWidget *button = gtk_button_new_with_label ("...");
+    gtk_widget_show (button);
+    gtk_table_attach (GTK_TABLE (table), button, 2, 3, idx, idx + 1,
+                      GTK_FILL, GTK_FILL, 4, 4);
+    g_signal_connect ((gpointer) button, "clicked",
+                      G_CALLBACK (on_default_key_selection_clicked),
+                      entry);
+
+    return button;
 }
 
 static GtkWidget *
-create_options_page ()
+create_common_page ()
 {
-    GtkWidget *vbox, *table, *label;
+    GtkWidget *vbox, *frame, *table, *check, *widget;
+
+    vbox = gtk_vbox_new (FALSE, 0);
+    gtk_widget_show (vbox);
+
+    if (!__widget_tooltips)
+        __widget_tooltips = gtk_tooltips_new();
+
+    /* specify initialize file name */
+    frame = gtk_frame_new ("");
+    gtk_container_set_border_width (GTK_CONTAINER (frame), 4);
+    gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, FALSE, 4);
+    gtk_widget_show (frame);
+
+    check = create_check_button (SCIM_CANNA_CONFIG_SPECIFY_INIT_FILE_NAME);
+     gtk_frame_set_label_widget (GTK_FRAME (frame), check);
+
+    table = gtk_table_new (2, 2, FALSE);
+    gtk_container_add (GTK_CONTAINER (frame), table);
+    gtk_widget_show (table);
+    widget = create_entry (SCIM_CANNA_CONFIG_INIT_FILE_NAME, GTK_TABLE (table), 0);
+
+    g_signal_connect (G_OBJECT (check), "toggled",
+                      G_CALLBACK (on_toggle_button_toggled_set_sensitive),
+                      widget);
+    gtk_widget_set_sensitive (widget, FALSE);
+
+    /* specify server name */
+    frame = gtk_frame_new ("");
+    gtk_container_set_border_width (GTK_CONTAINER (frame), 4);
+    gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, FALSE, 4);
+    gtk_widget_show (frame);
+
+    check = create_check_button (SCIM_CANNA_CONFIG_SPECIFY_SERVER_NAME);
+    gtk_frame_set_label_widget (GTK_FRAME (frame), check);
+
+    table = gtk_table_new (2, 2, FALSE);
+    gtk_container_add (GTK_CONTAINER (frame), table);
+    gtk_widget_show (table);
+    widget = create_entry (SCIM_CANNA_CONFIG_SERVER_NAME, GTK_TABLE (table), 0);
+
+    g_signal_connect (G_OBJECT (check), "toggled",
+                      G_CALLBACK (on_toggle_button_toggled_set_sensitive),
+                      widget);
+    gtk_widget_set_sensitive (widget, FALSE);
+
+    return vbox;
+}
+
+static GtkWidget *
+create_mode_page ()
+{
+    GtkWidget *vbox, *table;
 
     vbox = gtk_vbox_new (FALSE, 0);
     gtk_widget_show (vbox);
 
     table = gtk_table_new (2, 2, FALSE);
-    gtk_box_pack_start(GTK_BOX(vbox), table, FALSE, FALSE, 4);
+    gtk_box_pack_start (GTK_BOX (vbox), table, FALSE, FALSE, 0);
     gtk_widget_show (table);
 
-    if (!__widget_tooltips)
-        __widget_tooltips = gtk_tooltips_new();
+    // Default mode
+    create_combo (SCIM_CANNA_CONFIG_ON_OFF, on_off_modes,
+                  GTK_TABLE (table), 0);
 
-#if 0
-    /* predict on preedition */
-    __widget_predict_on_preedition
-        = gtk_check_button_new_with_mnemonic (_("Predict while typing letters."));
-    gtk_widget_show (__widget_predict_on_preedition);
-    gtk_box_pack_start (GTK_BOX (vbox), __widget_predict_on_preedition, FALSE, FALSE, 4);
-    gtk_container_set_border_width (GTK_CONTAINER (__widget_predict_on_preedition), 4);
-    gtk_tooltips_set_tip (__widget_tooltips, __widget_predict_on_preedition,
-                          _("Predict while typing letters."), NULL);
-
-    // Connect all signals.
-    g_signal_connect ((gpointer) __widget_command, "changed",
-                      G_CALLBACK (on_default_editable_changed),
-                      &__config_command);
-#endif
+    //ON/OFF key
+    create_entry (SCIM_CANNA_CONFIG_ON_OFF_KEY, GTK_TABLE (table), 1);
+    create_key_select_button (SCIM_CANNA_CONFIG_ON_OFF_KEY,
+                              GTK_TABLE (table), 1);
 
     return vbox;
 }
 
-#if 0
 static GtkWidget *
-create_toolbar_page ()
+create_about_page ()
 {
-    GtkWidget *vbox, *hbox, *label;
+    GtkWidget *vbox, *label;
+    gchar str[256];
 
     vbox = gtk_vbox_new (FALSE, 0);
     gtk_widget_show (vbox);
 
+    g_snprintf (
+        str, 256,
+        _("<span size=\"20000\">"
+          "%s-%s"
+          "</span>\n\n"
+
+          "<span size=\"16000\" style=\"italic\">"
+          "A Japanese input method module\nfor SCIM using Canna"
+          "</span>\n\n\n\n"
+
+          "<span size=\"12000\">"
+          "Copyright 2005-2006, Takuro Ashie &lt;ashie@homa.ne.jp&gt;"
+          "</span>"),
+        PACKAGE, PACKAGE_VERSION);
+
+    label = gtk_label_new (NULL);
+    gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_CENTER);
+    gtk_label_set_markup (GTK_LABEL (label), str);
+    gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, TRUE, 0);
+    gtk_widget_show (label);
+
     return vbox;
-}
-#endif
-
-#if 0
-static GtkWidget *
-create_dict_page (void)
-{
-    GtkWidget *table;
-    GtkWidget *label;
-
-    table = gtk_table_new (3, 3, FALSE);
-    gtk_widget_show (table);
-
-    return table;
-}
-#endif
-
-static GtkWidget *
-create_keyboard_page (unsigned int page)
-{
-    GtkWidget *table;
-    GtkWidget *label;
-
-    if (page >= __key_conf_pages_num)
-        return NULL;
-
-    KeyboardConfigData *data = __key_conf_pages[page].data;
-
-    table = gtk_table_new (3, 3, FALSE);
-    gtk_widget_show (table);
-
-    if (!__widget_tooltips)
-        __widget_tooltips = gtk_tooltips_new();
-
-    // Create keyboard setting.
-    for (unsigned int i = 0; data[i].key; ++ i) {
-        APPEND_ENTRY(_(data[i].label),  _(data[i].tooltip), data[i].entry, i);
-        gtk_entry_set_editable (GTK_ENTRY (data[i].entry), FALSE);
-
-        data[i].button = gtk_button_new_with_label ("...");
-        gtk_widget_show (data[i].button);
-        gtk_table_attach (GTK_TABLE (table), data[i].button, 2, 3, i, i+1,
-                          (GtkAttachOptions) (GTK_FILL),
-                          (GtkAttachOptions) (GTK_FILL), 4, 4);
-        gtk_label_set_mnemonic_widget (GTK_LABEL (label), data[i].button);
-    }
-
-    for (unsigned int i = 0; data[i].key; ++ i) {
-        g_signal_connect ((gpointer) data[i].button, "clicked",
-                          G_CALLBACK (on_default_key_selection_clicked),
-                          &(data[i]));
-        g_signal_connect ((gpointer) data[i].entry, "changed",
-                          G_CALLBACK (on_default_editable_changed),
-                          &(data[i].data));
-    }
-
-#if 0
-    for (unsigned int i = 0; data[i].key; ++ i) {
-        gtk_tooltips_set_tip (__widget_tooltips, data[i].entry,
-                              _(data[i].tooltip), NULL);
-    }
-#endif
-
-    return table;
 }
 
 static GtkWidget *
@@ -391,57 +511,50 @@ create_setup_window ()
 {
     static GtkWidget *window = NULL;
 
-    if (!window) {
-        GtkWidget *notebook = gtk_notebook_new();
-        gtk_widget_show (notebook);
-        window = notebook;
-        gtk_notebook_set_scrollable (GTK_NOTEBOOK (notebook), TRUE);
+    if (window) return NULL;
 
-        // Create the first page.
-        GtkWidget *page = create_options_page ();
-        GtkWidget *label = gtk_label_new (_("Options"));
-        gtk_widget_show (label);
-        gtk_notebook_append_page (GTK_NOTEBOOK (notebook), page, label);
+    GtkWidget *notebook = gtk_notebook_new();
+    gtk_widget_show (notebook);
+    window = notebook;
+    gtk_notebook_set_scrollable (GTK_NOTEBOOK (notebook), TRUE);
 
-#if 0
-        // Create the second page.
-        page = create_toolbar_page ();
-        label = gtk_label_new (_("Toolbar"));
-        gtk_widget_show (label);
-        gtk_notebook_append_page (GTK_NOTEBOOK (notebook), page, label);
+    // Create the first page.
+    GtkWidget *page = create_common_page ();
+    GtkWidget *label = gtk_label_new (_("Common"));
+    gtk_widget_show (label);
+    gtk_notebook_append_page (GTK_NOTEBOOK (notebook), page, label);
 
-        // Create the third page.
-        page = create_dict_page ();
-        label = gtk_label_new (_("Dictionary"));
-        gtk_widget_show (label);
-        gtk_notebook_append_page (GTK_NOTEBOOK (notebook), page, label);
-#endif
+    // Create the second page.
+    page = create_mode_page ();
+    label = gtk_label_new (_("Mode"));
+    gtk_widget_show (label);
+    gtk_notebook_append_page (GTK_NOTEBOOK (notebook), page, label);
 
-        // Create the key bind pages.
-        for (unsigned int i = 0; i < __key_conf_pages_num; i++) {
-            page = create_keyboard_page (i);
-            label = gtk_label_new (_(__key_conf_pages[i].label));
-            gtk_widget_show (label);
-            gtk_notebook_append_page (GTK_NOTEBOOK (notebook), page, label);
-        }
+    // Create the third page.
+    page = create_about_page ();
+    label = gtk_label_new (_("About"));
+    gtk_widget_show (label);
+    gtk_notebook_append_page (GTK_NOTEBOOK (notebook), page, label);
 
-        // for preventing enabling left arrow.
-	gtk_notebook_set_current_page (GTK_NOTEBOOK (notebook), 1);
-        gtk_notebook_set_current_page (GTK_NOTEBOOK (notebook), 0);
+    // for preventing enabling left arrow.
+    gtk_notebook_set_current_page (GTK_NOTEBOOK (notebook), 1);
+    gtk_notebook_set_current_page (GTK_NOTEBOOK (notebook), 0);
 
-        setup_widget_value ();
-    }
+    setup_widget_value ();
 
     return window;
 }
 
-#if 0
 static void
-setup_combo_value (GtkCombo *combo,
-                   ComboConfigData *data, const String & str)
+setup_combo_value (GtkCombo *combo, const String & str)
 {
     GList *list = NULL;
     const char *defval = NULL;
+
+    ComboConfigCandidate *data
+        = static_cast<ComboConfigCandidate*>
+        (g_object_get_data (G_OBJECT (GTK_COMBO(combo)->entry),
+                            DATA_POINTER_KEY));
 
     for (unsigned int i = 0; data[i].label; i++) {
         list = g_list_append (list, (gpointer) _(data[i].label));
@@ -455,27 +568,24 @@ setup_combo_value (GtkCombo *combo,
     if (defval)
         gtk_entry_set_text (GTK_ENTRY (combo->entry), defval);
 }
-#endif
 
 static void
 setup_widget_value ()
 {
-#if 0
-    if (__widget_command) {
-        gtk_entry_set_text (
-            GTK_ENTRY (__widget_command),
-            __config_command.c_str ());
+    for (unsigned int i = 0; i < __config_bool_common_num; i++) {
+        BoolConfigData &entry = __config_bool_common[i];
+        if (entry.widget)
+            gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (entry.widget),
+                                          entry.value);
     }
-#endif
 
-    for (unsigned int j = 0; j < __key_conf_pages_num; ++j) {
-        for (unsigned int i = 0; __key_conf_pages[j].data[i].key; ++ i) {
-            if (__key_conf_pages[j].data[i].entry) {
-                gtk_entry_set_text (
-                    GTK_ENTRY (__key_conf_pages[j].data[i].entry),
-                    __key_conf_pages[j].data[i].data.c_str ());
-            }
-        }
+    for (unsigned int i = 0; i < __config_string_common_num; i++) {
+        StringConfigData &entry = __config_string_common[i];
+        if (entry.widget && GTK_IS_COMBO (entry.widget))
+            setup_combo_value (GTK_COMBO (entry.widget), entry.value);
+        else if (entry.widget && GTK_IS_ENTRY (entry.widget))
+            gtk_entry_set_text (GTK_ENTRY (entry.widget),
+                                entry.value.c_str ());
     }
 }
 
@@ -485,21 +595,23 @@ load_config (const ConfigPointer &config)
     if (config.null ())
         return;
 
-#if 0
-    __config_command =
-        config->read (String (SCIM_CANNA_CONFIG_COMMAND),
-                      __config_command);
-#endif
+    for (unsigned int i = 0; i < __config_bool_common_num; i++) {
+        BoolConfigData &entry = __config_bool_common[i];
+        entry.value = config->read (String (entry.key), entry.value);
+    }
 
-    for (unsigned int j = 0; j < __key_conf_pages_num; ++ j) {
-        for (unsigned int i = 0; __key_conf_pages[j].data[i].key; ++ i) {
-            __key_conf_pages[j].data[i].data =
-                config->read (String (__key_conf_pages[j].data[i].key),
-                              __key_conf_pages[j].data[i].data);
-        }
+    for (unsigned int i = 0; i < __config_string_common_num; i++) {
+        StringConfigData &entry = __config_string_common[i];
+        entry.value = config->read (String (entry.key), entry.value);
     }
 
     setup_widget_value ();
+
+    for (unsigned int i = 0; i < __config_bool_common_num; i++)
+        __config_bool_common[i].changed = false;
+
+    for (unsigned int i = 0; i < __config_string_common_num; i++)
+        __config_string_common[i].changed = false;
 
     __have_changed = false;
 }
@@ -510,16 +622,18 @@ save_config (const ConfigPointer &config)
     if (config.null ())
         return;
 
-#if 0
-    config->write (String (SCIM_CANNA_CONFIG_COMMAND),
-                   __config_command);
-#endif
+    for (unsigned int i = 0; i < __config_bool_common_num; i++) {
+        BoolConfigData &entry = __config_bool_common[i];
+        if (entry.changed)
+            entry.value = config->write (String (entry.key), entry.value);
+        entry.changed = false;
+    }
 
-    for (unsigned int j = 0; j < __key_conf_pages_num; j++) {
-        for (unsigned int i = 0; __key_conf_pages[j].data[i].key; ++ i) {
-            config->write (String (__key_conf_pages[j].data[i].key),
-                           __key_conf_pages[j].data[i].data);
-        }
+    for (unsigned int i = 0; i < __config_string_common_num; i++) {
+        StringConfigData &entry = __config_string_common[i];
+        if (entry.changed)
+            entry.value = config->write (String (entry.key), entry.value);
+        entry.changed = false;
     }
 
     __have_changed = false;
@@ -536,10 +650,11 @@ static void
 on_default_toggle_button_toggled (GtkToggleButton *togglebutton,
                                   gpointer         user_data)
 {
-    bool *toggle = static_cast<bool*> (user_data);
+    BoolConfigData *entry = static_cast<BoolConfigData*> (user_data);
 
-    if (toggle) {
-        *toggle = gtk_toggle_button_get_active (togglebutton);
+    if (entry) {
+        entry->value = gtk_toggle_button_get_active (togglebutton);
+        entry->changed = true;
         __have_changed = true;
     }
 }
@@ -548,11 +663,48 @@ static void
 on_default_editable_changed (GtkEditable *editable,
                              gpointer     user_data)
 {
-    String *str = static_cast <String *> (user_data);
+    StringConfigData *entry = static_cast <StringConfigData*> (user_data);
 
-    if (str) {
-        *str = String (gtk_entry_get_text (GTK_ENTRY (editable)));
+    if (entry) {
+        entry->value = String (gtk_entry_get_text (GTK_ENTRY (editable)));
+        entry->changed = true;
         __have_changed = true;
+    }
+}
+
+static void
+on_toggle_button_toggled_set_sensitive (GtkToggleButton *togglebutton,
+                                        gpointer         user_data)
+{
+    GtkWidget *widget = GTK_WIDGET (user_data);
+
+    if (widget) {
+        bool active = gtk_toggle_button_get_active (togglebutton);
+        gtk_widget_set_sensitive (widget, active);
+    }
+}
+
+static void
+on_default_combo_changed (GtkEditable *editable,
+                          gpointer user_data)
+{
+    StringConfigData *entry = static_cast<StringConfigData*> (user_data);
+    ComboConfigCandidate *data = static_cast<ComboConfigCandidate*>
+        (g_object_get_data (G_OBJECT (editable),
+                            DATA_POINTER_KEY));
+
+    if (!entry) return;
+    if (!data) return;
+
+    const char *label =  gtk_entry_get_text (GTK_ENTRY (editable));
+
+    for (unsigned int i = 0; data[i].label; i++) {
+        if (label && !strcmp (_(data[i].label), label)) {
+            entry->value   = data[i].data;
+            entry->changed = true;
+            __have_changed = true;
+            break;
+        }
     }
 }
 
@@ -560,7 +712,7 @@ static void
 on_default_key_selection_clicked (GtkButton *button,
                                   gpointer   user_data)
 {
-    KeyboardConfigData *data = static_cast <KeyboardConfigData *> (user_data);
+    StringConfigData *data = static_cast <StringConfigData*> (user_data);
 
     if (data) {
         GtkWidget *dialog = scim_key_selection_dialog_new (_(data->title));
@@ -568,7 +720,7 @@ on_default_key_selection_clicked (GtkButton *button,
 
         scim_key_selection_dialog_set_keys (
             SCIM_KEY_SELECTION_DIALOG (dialog),
-            gtk_entry_get_text (GTK_ENTRY (data->entry)));
+            gtk_entry_get_text (GTK_ENTRY (data->widget)));
 
         result = gtk_dialog_run (GTK_DIALOG (dialog));
 
@@ -578,38 +730,13 @@ on_default_key_selection_clicked (GtkButton *button,
 
             if (!keys) keys = "";
 
-            if (strcmp (keys, gtk_entry_get_text (GTK_ENTRY (data->entry))) != 0)
-                gtk_entry_set_text (GTK_ENTRY (data->entry), keys);
+            if (strcmp (keys, gtk_entry_get_text (GTK_ENTRY (data->widget))))
+                gtk_entry_set_text (GTK_ENTRY (data->widget), keys);
         }
 
         gtk_widget_destroy (dialog);
     }
 }
-
-#if 0
-static void
-on_default_combo_changed (GtkEditable *editable,
-                          gpointer user_data)
-{
-    String *str = static_cast<String *> (user_data);
-    ComboConfigData *data
-        = static_cast<ComboConfigData *> (g_object_get_data (G_OBJECT (editable),
-                                                             DATA_POINTER_KEY));
-
-    if (!str) return;
-    if (!data) return;
-
-    const char *label =  gtk_entry_get_text (GTK_ENTRY (editable));
-
-    for (unsigned int i = 0; data[i].label; i++) {
-        if (label && !strcmp (_(data[i].label), label)) {
-            *str = data[i].data;
-            __have_changed = true;
-            break;
-        }
-    }
-}
-#endif
 /*
 vi:ts=4:nowrap:ai:expandtab
 */

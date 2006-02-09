@@ -1,0 +1,4 @@
+File=canna.kcfg
+ClassName=CannaConfig
+Singleton=true
+Mutators=false
