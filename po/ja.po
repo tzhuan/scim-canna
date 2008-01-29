@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scim-canna\n"
 "Report-Msgid-Bugs-To: ashie@homa.ne.jp\n"
-"POT-Creation-Date: 2006-02-13 13:02+0900\n"
+"POT-Creation-Date: 2008-01-29 11:55+0900\n"
 "PO-Revision-Date: 2005-03-24 10:57+0900\n"
 "Last-Translator: Takuro Ashie <ashie@homa.ne.jp>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -13,59 +13,59 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/canna_jrkanji.cpp:141 src/canna_jrkanji.cpp:142
+#: src/canna_jrkanji.cpp:142 src/canna_jrkanji.cpp:143
 msgid "Input mode"
 msgstr "入力モード"
 
-#: src/canna_jrkanji.cpp:146 src/canna_jrkanji.cpp:147
+#: src/canna_jrkanji.cpp:147 src/canna_jrkanji.cpp:148
 msgid "Off"
 msgstr "オフ"
 
-#: src/canna_jrkanji.cpp:151 src/canna_jrkanji.cpp:152
+#: src/canna_jrkanji.cpp:152 src/canna_jrkanji.cpp:153
 msgid "Hiragana"
 msgstr "ひらがな"
 
-#: src/canna_jrkanji.cpp:156 src/canna_jrkanji.cpp:157
+#: src/canna_jrkanji.cpp:157 src/canna_jrkanji.cpp:158
 msgid "Katakana"
 msgstr "カタカナ"
 
-#: src/canna_jrkanji.cpp:161 src/canna_jrkanji.cpp:162
+#: src/canna_jrkanji.cpp:162 src/canna_jrkanji.cpp:163
 msgid "Half width katakana"
 msgstr "半角カタカナ"
 
-#: src/canna_jrkanji.cpp:166 src/canna_jrkanji.cpp:167
+#: src/canna_jrkanji.cpp:167 src/canna_jrkanji.cpp:168
 msgid "Alphabet"
 msgstr "英数"
 
-#: src/canna_jrkanji.cpp:171 src/canna_jrkanji.cpp:172
+#: src/canna_jrkanji.cpp:172 src/canna_jrkanji.cpp:173
 msgid "Wide alphabet"
 msgstr "全角英数"
 
-#: src/canna_jrkanji.cpp:176
+#: src/canna_jrkanji.cpp:177
 msgid "Symbols"
 msgstr "記号"
 
-#: src/canna_jrkanji.cpp:177
+#: src/canna_jrkanji.cpp:178
 msgid "Search a symbol"
 msgstr "記号を入力"
 
-#: src/canna_jrkanji.cpp:181
+#: src/canna_jrkanji.cpp:182
 msgid "Hex"
 msgstr "16進"
 
-#: src/canna_jrkanji.cpp:182
+#: src/canna_jrkanji.cpp:183
 msgid "Search a kanji by hex"
 msgstr "漢字を16進コードで検索"
 
-#: src/canna_jrkanji.cpp:186
+#: src/canna_jrkanji.cpp:187
 msgid "Bushu"
 msgstr "部首"
 
-#: src/canna_jrkanji.cpp:187
+#: src/canna_jrkanji.cpp:188
 msgid "Search a kanji by bushu"
 msgstr "漢字を部首で検索"
 
-#: src/canna_jrkanji.cpp:490
+#: src/canna_jrkanji.cpp:491
 msgid "[Off]"
 msgstr "[オフ]"
 
@@ -179,47 +179,47 @@ msgstr ""
 "  索や単語登録、環境設定を行うことができます。\n"
 "  \n"
 
-#: src/scim_canna_imengine_setup.cpp:85
+#: src/scim_canna_imengine_setup.cpp:86
 msgid "Canna"
 msgstr "かんな"
 
-#: src/scim_canna_imengine_setup.cpp:90
+#: src/scim_canna_imengine_setup.cpp:91
 msgid "A Canna IMEngine Module."
 msgstr "かんなIMEngineモジュール"
 
-#: src/scim_canna_imengine_setup.cpp:161
+#: src/scim_canna_imengine_setup.cpp:162
 msgid "Specify Canna initialize file"
 msgstr "かんな初期化ファイルを指定する"
 
-#: src/scim_canna_imengine_setup.cpp:170
+#: src/scim_canna_imengine_setup.cpp:171
 msgid "Specify Canna server name"
 msgstr "かんなサーバを指定する"
 
-#: src/scim_canna_imengine_setup.cpp:186
+#: src/scim_canna_imengine_setup.cpp:187
 msgid "The Canna initialize file name to use."
 msgstr "使用するかんな初期化ファイルを指定します"
 
-#: src/scim_canna_imengine_setup.cpp:195
+#: src/scim_canna_imengine_setup.cpp:196
 msgid "The Canna host name to connect."
 msgstr "接続するかんなサーバが稼働しているホストの名前を指定します"
 
-#: src/scim_canna_imengine_setup.cpp:202
+#: src/scim_canna_imengine_setup.cpp:203
 msgid "Default mode:"
 msgstr "デフォルトモード:"
 
-#: src/scim_canna_imengine_setup.cpp:211
+#: src/scim_canna_imengine_setup.cpp:212
 msgid "On/Off key:"
 msgstr "ON/OFFキー:"
 
-#: src/scim_canna_imengine_setup.cpp:222
+#: src/scim_canna_imengine_setup.cpp:223
 msgid "Japanese On"
 msgstr "日本語ON"
 
-#: src/scim_canna_imengine_setup.cpp:223
+#: src/scim_canna_imengine_setup.cpp:224
 msgid "Japanese Off"
 msgstr "日本語OFF"
 
-#: src/scim_canna_imengine_setup.cpp:487
+#: src/scim_canna_imengine_setup.cpp:488
 #, c-format
 msgid ""
 "<span size=\"20000\">%s-%s</span>\n"
@@ -242,15 +242,15 @@ msgstr ""
 "<span size=\"12000\">Copyright 2005-2006, Takuro Ashie &lt;ashie@homa.ne."
 "jp&gt;</span>"
 
-#: src/scim_canna_imengine_setup.cpp:523
+#: src/scim_canna_imengine_setup.cpp:524
 msgid "Common"
 msgstr "一般"
 
-#: src/scim_canna_imengine_setup.cpp:529
+#: src/scim_canna_imengine_setup.cpp:530
 msgid "Mode"
 msgstr "モード"
 
-#: src/scim_canna_imengine_setup.cpp:535
+#: src/scim_canna_imengine_setup.cpp:536
 msgid "About"
 msgstr "情報"
 
